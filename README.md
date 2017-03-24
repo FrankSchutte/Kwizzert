@@ -35,3 +35,14 @@ Hieronder zijn de functionaliteiten weergegeven die ondersteund worden door de v
   - geef antwoorden per team weer
   - geef beoordeling kwizmeestert weer
   - werk teamscores bij
+
+## Routes
+
+### Team-app
+/team
+
+### KwizMeestert-app
+/kwizmeestert
+
+### Scorebord-app
+/scorebord
