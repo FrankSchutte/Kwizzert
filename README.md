@@ -1,6 +1,24 @@
 # Kwizzert
-KWIZ BEHEER API CALLS MOGEN ALLEEN ALS MEESTERT IS INGELOGD. (IETS MET SESSIONS)
+**KWIZ BEHEER API CALLS MOGEN ALLEEN ALS MEESTERT IS INGELOGD.(IETS MET SESSIONS)**
 
+## Mappen structuur
+Hieronder staat de mappen structuur van Kwizzert.
+```
+Kwizzert/
+    build/
+    node_modules/
+    public/
+    src/
+        components/
+        kwizmeestert-app/
+        scorebord-app/
+        server/
+        team-app/
+    .gitignore
+    LICENSE
+    package.json
+    README.md
+```
 ## Functionaliteiten
 Hieronder zijn de functionaliteiten weergegeven die ondersteund worden door de verschillende apps.
 
@@ -34,22 +52,17 @@ Hieronder zijn de functionaliteiten weergegeven die ondersteund worden door de v
   - geef beoordeling kwizmeestert weer
   - werk teamscores bij
   
-##Technische specificaties
+## Technische specificaties
+Hieronder staat per onderdeel van de applicatie(clients en server) beschreven van welke technologieën gebruik wordt gemaakt.
 
-###Clients
-- React
-- Redux
-- Websocket
-- AJAX
+### Clients
+Alle clients maken gebruikt van react en redux. Communicatie tussen clients zal via websockets gaan, superagent wordt gebruikt om AJAX calls te doen naar de server.
 
-###Server
-- Express
-- Websocket
-- MongoDB
+### Server
+Op de server wordt express gebruikt voor de routing van de client apps en de REST API. De REST API wordt vooral gebruikt om data uit de database te verzenden. Op de server zal ook een MongoDB draaien waarin vragen, categorieën en antwoorden staan.
 
-## Routes
-De index pagina toont een statische pagina met drie knoppen.  
-Deze knoppen verwijzen naar de verschillende applicaties.
+## Routing
+De index pagina toont een statische pagina met drie knoppen.Deze knoppen verwijzen naar de verschillende applicaties.
 
 ### Team-app
 /team
@@ -60,27 +73,29 @@ Deze knoppen verwijzen naar de verschillende applicaties.
 ### Scorebord-app
 /scorebord
 
-##Communicatie beslissingen
-Er is gekozen om de communicatie tussen de verschillende applicaties af te handelen via websocket en een API.  
-Alle communicatie met de database gaat via een API op de server, alle overige communicatie gaat via websockets.
+## Communicatie
+Er is gekozen om de communicatie tussen de verschillende onderdelen van Kwizzert af te handelen via websocket en een API. Alle communicatie met de database gaat via een API op de server, alle overige communicatie gaat via websockets.
 
-## API
-De meestert moet verifiëren via een sessionId.  
-Dit moet via een HTTP header gebeuren maar wij weten nog niet hoe.
+### API
+##### POST /api/v1/login
+De meestert moet zich authenticeren via een sessionId.  
+**Dit moet via een HTTP header gebeuren maar wij weten nog niet hoe.**
 
-#### POST /api/v1/login
 ```
 Body parameters:
 {
     password: "..."
 }
+
+Response 
+    success: 200 OK
+    failed : 401 Unauthorized
 ```
 
-###Kwiz
-
-#### GET /api/v1/kwiz/create
+#### Kwiz
+##### GET /api/v1/kwiz/create
 Maakt een nieuwe Kwiz aan en geeft de unieke Kwiz code terug.  
-Hiervoor moet een session aangemaakt zijn door middel van /api/v1/login.
+*Hiervoor moet een session aangemaakt zijn door middel van /api/v1/login.*
 ```
 Response:
 {
@@ -88,8 +103,8 @@ Response:
 }
 ```
 
-###Categories
-####GET /api/v1/categories
+#### Categories
+##### GET /api/v1/categories
 Vraag een lijst op met alle categorieën.
 ```
 Response:
@@ -99,12 +114,12 @@ Response:
 ]
 ```
 
-###Questions
-####GET /api/v1/questions
-Vraag een lijst op van alle vragen in gegeven categorie.
-Hiervoor moet een session aangemaakt zijn door middel van /api/v1/login.
+#### Questions
+##### GET /api/v1/questions
+Vraag een lijst op van alle vragen in gegeven categorie.  
+*Hiervoor moet een session aangemaakt zijn door middel van /api/v1/login.*
 ```
-Query parameters:
+Query parameters
     categoryName: Naam van de categorie. (required)
 
 Response:
@@ -119,9 +134,9 @@ Response:
 ]
 ```
 
-####GET /api/v1/kwizmeestert-questions/:id
-Vraag alle informatie over een vraag op.
-Hiervoor moet een session aangemaakt zijn door middel van /api/v1/login.
+##### GET /api/v1/kwizmeestert-questions/:id
+Vraag alle informatie over een vraag op.  
+*Hiervoor moet een session aangemaakt zijn door middel van /api/v1/login.*
 ```
 Response:
 {
@@ -131,7 +146,7 @@ Response:
 }
 ```
 
-####GET /api/v1/questions/:id
+##### GET /api/v1/questions/:id
 Vraag een vraag op.
 ```
 Response:
@@ -141,8 +156,8 @@ Response:
 }
 ```
 
-##Websocket
-####Client identificeren
+### Websocket
+##### Client identificeren
 Elke client moet aangeven wat zijn rol is: kwizmeestert, team of scorebord. 
 ```
 {
@@ -152,7 +167,7 @@ Elke client moet aangeven wat zijn rol is: kwizmeestert, team of scorebord.
 }
 ```
 
-####Team aanmelden
+##### Team aanmelden
 Een team kan zich aanmelden voor een kwiz.
 ```
 {
@@ -162,7 +177,7 @@ Een team kan zich aanmelden voor een kwiz.
 }
 ```
 
-####Kwizmeestert start een kwiz
+##### Kwizmeestert start een kwiz
 Een kwizmeestert bepaald welke teams meedoen en start de kwiz met deze teams.
 ```
 {
@@ -178,7 +193,7 @@ Een kwizmeestert bepaald welke teams meedoen en start de kwiz met deze teams.
 }
 ```
 
-####Kwizmeestert kiest een vraag
+##### Kwizmeestert kiest een vraag
 Een kwizmeestert kiest een vraag, de andere clients halen de vraag op.
 ```
 {
@@ -188,7 +203,7 @@ Een kwizmeestert kiest een vraag, de andere clients halen de vraag op.
 }
 ```
 
-####Kwizmeestert start een vraag
+##### Kwizmeestert start een vraag
 Een kwizmeestert start een vraag.
 ```
 {
@@ -197,7 +212,7 @@ Een kwizmeestert start een vraag.
 }
 ```
 
-####Kwizmeestert sluit een vraag
+##### Kwizmeestert sluit een vraag
 Een kwizmeestert sluit een vraag.
 ```
 {
@@ -206,7 +221,7 @@ Een kwizmeestert sluit een vraag.
 }
 ```
 
-####Kwizmeestert beoordeeld een antwoord
+##### Kwizmeestert beoordeeld een antwoord
 De kwizmeestert keurt vragen goed of fout.
 ```
 {
@@ -222,7 +237,7 @@ De kwizmeestert keurt vragen goed of fout.
 }
 ```
 
-####Ronde afgelopen
+##### Ronde afgelopen
 Een kwizmeestert sluit een ronde.
 ```
 {
@@ -231,7 +246,7 @@ Een kwizmeestert sluit een ronde.
 }
 ```
 
-####Kwiz afgelopen
+##### Kwiz afgelopen
 Een kwizmeestert beëindigd een kwiz.
 ```
 {
