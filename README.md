@@ -1,7 +1,5 @@
 # Kwizzert
-
 KWIZ BEHEER API CALLS MOGEN ALLEEN ALS MEESTERT IS INGELOGD. (IETS MET SESSIONS)
-
 
 ## Functionaliteiten
 Hieronder zijn de functionaliteiten weergegeven die ondersteund worden door de verschillende apps.
@@ -35,8 +33,23 @@ Hieronder zijn de functionaliteiten weergegeven die ondersteund worden door de v
   - geef antwoorden per team weer
   - geef beoordeling kwizmeestert weer
   - werk teamscores bij
+  
+##Technische specificaties
+
+###Clients
+- React
+- Redux
+- Websocket
+- AJAX
+
+###Server
+- Express
+- Websocket
+- MongoDB
 
 ## Routes
+De index pagina toont een statische pagina met drie knoppen.  
+Deze knoppen verwijzen naar de verschillende applicaties.
 
 ### Team-app
 /team
@@ -47,10 +60,11 @@ Hieronder zijn de functionaliteiten weergegeven die ondersteund worden door de v
 ### Scorebord-app
 /scorebord
 
-
+##Communicatie beslissingen
+Er is gekozen om de communicatie tussen de verschillende applicaties af te handelen via websocket en een API.  
+Alle communicatie met de database gaat via een API op de server, alle overige communicatie gaat via websockets.
 
 ## API
-
 De meestert moet verifiëren via een sessionId.  
 Dit moet via een HTTP header gebeuren maar wij weten nog niet hoe.
 
@@ -64,8 +78,6 @@ Body parameters:
 
 ###Kwiz
 
-
-
 #### GET /api/v1/kwiz/create
 Maakt een nieuwe Kwiz aan en geeft de unieke Kwiz code terug.  
 Hiervoor moet een session aangemaakt zijn door middel van /api/v1/login.
@@ -73,41 +85,6 @@ Hiervoor moet een session aangemaakt zijn door middel van /api/v1/login.
 Response:
 {
     code: "..."
-}
-```
-
-####GET /api/v1/kwiz/:code/teams
-Haal een op lijst van alle aangemelde teams bij een kwiz.  
-Hiervoor moet een session aangemaakt zijn door middel van /api/v1/login.
-```
-Query parameters:
-    code: De unieke code van een kwiz.
-
-Response:
-[
-    { teamName: "..." },
-    ...
-]
-```
-
-####GET /api/v1/kwiz/:code/start 
-Start de Kwiz met alle toegestane teams.  
-Hiervoor moet een session aangemaakt zijn door middel van /api/v1/login.
-```
-Body parameters: 
-[
-    { teamName: "...", allowed: true/false },
-    { ... }
-]
-```
-
-#### POST /api/v1/kwiz/register
-Meld een team aan bij een bestaande, nog niet gestartte Kwiz.
-```
-Body parameters:
-{
-    code: "...",
-    teamName: "..."
 }
 ```
 
@@ -142,4 +119,123 @@ Response:
 ]
 ```
 
-####GET /api/v1/questions/
+####GET /api/v1/kwizmeestert-questions/:id
+Vraag alle informatie over een vraag op.
+Hiervoor moet een session aangemaakt zijn door middel van /api/v1/login.
+```
+Response:
+{
+    question: "...",
+    answer: "...",
+    category: "..."
+}
+```
+
+####GET /api/v1/questions/:id
+Vraag een vraag op.
+```
+Response:
+{
+    question: "...",
+    category: "..."
+}
+```
+
+##Websocket
+####Client identificeren
+Elke client moet aangeven wat zijn rol is: kwizmeestert, team of scorebord. 
+```
+{
+    action: "REGISTER",
+    code: "...",
+    type: "quizmaster | team | scoreboard"
+}
+```
+
+####Team aanmelden
+Een team kan zich aanmelden voor een kwiz.
+```
+{
+    action: "ADD_TEAM",
+    code: "...",
+    teamName: "..."
+}
+```
+
+####Kwizmeestert start een kwiz
+Een kwizmeestert bepaald welke teams meedoen en start de kwiz met deze teams.
+```
+{
+    action: "START_QUIZ",
+    code: "...",
+    teams: [
+        {
+            teamName: "...",
+            allowed: true | false
+        },
+        { ... }
+    ]
+}
+```
+
+####Kwizmeestert kiest een vraag
+Een kwizmeestert kiest een vraag, de andere clients halen de vraag op.
+```
+{
+    action: "PICK_QUESTION",
+    code: "...",
+    questionId: "..."
+}
+```
+
+####Kwizmeestert start een vraag
+Een kwizmeestert start een vraag.
+```
+{
+    action: "START_QUESTION",
+    code: "..."
+}
+```
+
+####Kwizmeestert sluit een vraag
+Een kwizmeestert sluit een vraag.
+```
+{
+    action: "CLOSE_QUESTION",
+    code: "..."
+}
+```
+
+####Kwizmeestert beoordeeld een antwoord
+De kwizmeestert keurt vragen goed of fout.
+```
+{
+    action: "RATE_ANSWER",
+    code: "...",
+    answers: [
+        {
+            team: "...",
+            answer: "...",
+            approved: true | false
+        }
+    ]
+}
+```
+
+####Ronde afgelopen
+Een kwizmeestert sluit een ronde.
+```
+{
+    action: "ROUND_FINISHED",
+    code: "..."
+}
+```
+
+####Kwiz afgelopen
+Een kwizmeestert beëindigd een kwiz.
+```
+{
+    action: "QUIZ_FINISHED",
+    code: "..."
+}
+```
