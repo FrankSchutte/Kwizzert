@@ -1,12 +1,12 @@
 "use strict";
 const ws = require('ws');
 
-module.exports.create = (httpServer) => {
+module.exports.create = (httpServer) => (
     new ws.Server({
         server: httpServer,
         path: '/ws'
-    });
-};
+    })
+);
 
 const configure = (wsServer) => {
     wsServer.on('connection', (websocket) => {
@@ -25,6 +25,9 @@ const configure = (wsServer) => {
                 switch (action) {
                     case 'ADD_TEAM':
                         sendTeamToMaster(wsServer, messageObject.teamName, websocket.kwiz.code);
+                        break;
+                    case 'START_QUIZ':
+                        sendMessageToRefusedTeams(wsServer, messageObject.teams, websocket.kwiz.code);
                         break;
                 }
             }
@@ -49,6 +52,10 @@ function sendTeamToMaster(wsServer, teamName, quizcode) {
             client.send(JSON.stringify(message));
         }
     });
+}
+
+function sendMessageToRefusedTeams(wsServer, teams, quizcode) {
+
 }
 
 
