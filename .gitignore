@@ -26,4 +26,5 @@ coverage/*
 
 *\.idea/watcherTasks\.xml
 
-
+#shhhhh
+secrets.js
