@@ -1,6 +1,5 @@
 "use strict";
 const http = require('http');
-const ws = require('ws');
 const express = require('express');
 const path = require('path');
 const websockets = require('./websockets');
