@@ -5,27 +5,40 @@
 Hieronder staat de mappen structuur van Kwizzert.
 ```
 Kwizzert/
-    build/
-    node_modules/
-    public/
-    src/
-        components/
-        kwizmeestert-app/
-        scorebord-app/
-        server/
-        team-app/
+    team/
+        build/
+        node_modules/
+        public/
+        src/
+        package.json
+    kwizmeestert/
+        build/
+        node_modules/
+        public/
+        src/
+        package.json
+    scorebord/
+        build/
+        node_modules/
+        public/
+        src/
+        package.json
     .gitignore
     LICENSE
     package.json
     README.md
 ```
-## Functionaliteiten
+## Mockups
 Hieronder zijn de functionaliteiten weergegeven die ondersteund worden door de verschillende apps.
 
 ### Team-app
 - Aanmelden
 - Huidige vraag weergeven
 - Vraag beantwoorden
+
+Teams moeten zich kunnen aanmelden via het eerste scherm. Daarna moeten de teams op de kwizmeestert wachten, wanneer hij een vraag start wordt de vraag getoond met een veld voor een antwoord. Als extra is er een scherm bedacht die wordt getoond wanneer de kwiz wordt gesloten, dan krijgen de teams een bericht waarin staat hoe goed ze de kwiz hebben gemaakt.
+
+![team-app mockup](./images/team.jpg)
 
 ### KwizMeestert-app
 - Openstellen voor aanmeldingen
@@ -38,6 +51,12 @@ Hieronder zijn de functionaliteiten weergegeven die ondersteund worden door de v
 - Vraag starten
 - Vraag sluiten
 - Antwoord goedkeuren
+
+De kwizmeestert kan in het eerste scherm een kwiz openstellen voor aanmeldingen, daarna kunnen teams zich aanmelden en kan de kwizmeestert teams toelaten of afwijzen.
+De kwizmeestert moet na het starten van een kwiz drie categorieën selecteren om de ronde te starten. De kwizmeestert dan voorgaand aan iedere vraag een vraag kiezen uit de geselecteerde categorieën. De kwizmeestert bepaald bij iedere vraag hoelang teams een antwoord kunnen indienen. De kwizmeestert kan ook antwoorden van teams goedkeuren.
+Als er 12 vragen zijn geweest kan de kwizmeestert kiezen om een nieuwe ronde te starten of om de kwiz te stoppen.
+
+![kwizmeestert-app mockup](./images/meestert.jpg)
 
 ### Scorebord-app
 - Voortgang weergeven
@@ -52,7 +71,11 @@ Hieronder zijn de functionaliteiten weergegeven die ondersteund worden door de v
   - geef beoordeling kwizmeestert weer
   - werk teamscores bij
   
-## Technische specificaties
+Het scorebord app geeft de voortgang van de kwiz weer. Er moet worden getoond welke teams meedoen, hoeveel vragen iederen team goed heeft en het aantal rondepunten. Daarnaast geeft het scorebord bij iedere vraag live weer welke teams een antwoord hebben ingedient. Wanneer de vraag is gesloten is op het scorebord live te zien of de kwizmeestert een antwoord heeft goedkeurd of afgekeurd.
+
+![scorebord-app mockup](./images/scorebord.jpg)
+  
+## Technische specificatie
 Hieronder staat per onderdeel van de applicatie(clients en server) beschreven van welke technologieën gebruik wordt gemaakt.
 
 ### Clients
@@ -90,6 +113,15 @@ Body parameters:
 Response 
     success: 200 OK
     failed : 401 Unauthorized
+```
+
+##### GET /api/v1/kwiz/:code
+Voordat clients zich bij een kwiz aanmelden moet er worden gecontroleerd of de kwiz bestaat, als de kwiz niet bestaat wordt _null_ gegeven, als de kwiz gestart of gestopt is wordt open of closed gegeven.
+```
+Response:
+{
+    status: null | open | closed
+}
 ```
 
 #### Kwiz
