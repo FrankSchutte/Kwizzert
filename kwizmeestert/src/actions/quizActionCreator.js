@@ -1,5 +1,5 @@
-import {REQUEST_OPEN_QUIZ, RECEIVE_OPEN_QUIZ} from '../constants';
-import KwizzertAPI from '../KwizzertAPI';
+import {REQUEST_OPEN_QUIZ, SUCCESS_OPEN_QUIZ, ERROR_OPEN_QUIZ, START_QUIZ} from '../constants';
+import KwizzertAPI from '../kwizzertAPI';
 
 const QuizActionCreator = {
     openQuiz() {
@@ -7,12 +7,15 @@ const QuizActionCreator = {
             dispatch({type: REQUEST_OPEN_QUIZ});
             KwizzertAPI.openQuiz((err, code) => {
                 if (err) {
-                    dispatch({type: RECEIVE_OPEN_QUIZ, success: false});
+                    dispatch({type: ERROR_OPEN_QUIZ});
                 } else {
-                    dispatch({type: RECEIVE_OPEN_QUIZ, success: true, code});
+                    dispatch({type: SUCCESS_OPEN_QUIZ, code});
                 }
             });
         }
+    },
+    startQuiz() {
+        return {type: START_QUIZ};
     }
 };
 

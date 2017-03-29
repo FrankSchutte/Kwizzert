@@ -4,8 +4,8 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
 
-import App from './components/App';
-import quiz from './reducers/quizReducer';
+import AppContainer from './components/Main';
+import reducers from './reducers';
 import './index.css';
 
 let store;
@@ -16,20 +16,20 @@ const middleware = applyMiddleware(
 if (window.__REDUX_DEVTOOLS_EXTENSION__) {
     const reduxDevtoolConnector = window.__REDUX_DEVTOOLS_EXTENSION__();
     store = createStore(
-        quiz,
+        reducers,
         compose(middleware, reduxDevtoolConnector)
     );
 } else {
     console.log('Redux dev tool is er niet pleb!');
     store = createStore(
-        null,
+        reducers,
         middleware
     );
 }
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <AppContainer />
     </Provider>,
     document.getElementById('root')
 );
