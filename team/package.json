@@ -10,8 +10,7 @@
     "redux-thunk": "^2.2.0",
     "superagent": "^3.5.2"
   },
-  "devDependencies": {
-    "react-scripts": "0.9.5"
+  "devDependencies": {    "react-scripts": "0.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
