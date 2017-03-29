@@ -75,4 +75,4 @@ api.get('/kwizmeestert-questions/:id', function (req, res) {
     res.status(200).send(JSON.stringify(response));
 });
 
-export default api;
+module.exports = api;
