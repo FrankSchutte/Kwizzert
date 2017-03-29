@@ -115,15 +115,6 @@ Response
     failed : 401 Unauthorized
 ```
 
-##### GET /api/v1/kwiz/:code
-Voordat clients zich bij een kwiz aanmelden moet er worden gecontroleerd of de kwiz bestaat, als de kwiz niet bestaat wordt _null_ gegeven, als de kwiz gestart of gestopt is wordt open of closed gegeven.
-```
-Response:
-{
-    status: null | open | closed
-}
-```
-
 #### Kwiz
 ##### GET /api/v1/kwiz/create
 Maakt een nieuwe Kwiz aan en geeft de unieke Kwiz code terug.  
@@ -132,6 +123,15 @@ Maakt een nieuwe Kwiz aan en geeft de unieke Kwiz code terug.
 Response:
 {
     code: "..."
+}
+```
+
+##### GET /api/v1/kwiz/:code
+Voordat clients zich bij een kwiz aanmelden moet er worden gecontroleerd of de kwiz bestaat, als de kwiz niet bestaat wordt _null_ gegeven, als de kwiz gestart of gestopt is wordt open of closed gegeven.
+```
+Response:
+{
+    status: null | open | closed
 }
 ```
 

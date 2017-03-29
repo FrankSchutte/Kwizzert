@@ -7,4 +7,4 @@ const secrets = {
     }
 };
 
-export default secrets;
+module.exports = secrets;
