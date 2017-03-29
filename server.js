@@ -1,7 +1,14 @@
 "use strict";
+const http = require('http');
+const ws = require('ws');
 const express = require('express');
 const path = require('path');
+const websockets = require('./websockets');
+
 const app = express();
+const httpServer = http.createServer(app);
+const wsServer = websockets.create(httpServer);
+websockets.configure(wsServer);
 
 const port = process.env.PORT || 3000;
 app.use('/api/v1', require('./api'));
