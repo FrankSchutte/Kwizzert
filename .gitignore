@@ -28,3 +28,5 @@ coverage/*
 
 #shhhhh
 secrets.js
+
+npm-debug\.log
