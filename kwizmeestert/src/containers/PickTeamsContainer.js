@@ -1,14 +1,16 @@
 import {connect} from 'react-redux';
 
 import PickTeams from '../components/PickTeams';
-import QuizActionCreator from '../actions/quizActionCreator';
+import routingActionCreator from '../actions/routingActionCreator';
+import teamActionCreator from '../actions/teamActionCreator';
 
 const mapStateToProps = (state) => ({
     teams: state.teamReducer.teams
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onStartQuiz: () => dispatch(QuizActionCreator.startQuiz())
+    onToggleTeam: (team) => dispatch(teamActionCreator.toggleTeamApproval(team)),
+    onStartQuiz: () => dispatch(routingActionCreator.startQuiz())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PickTeams);

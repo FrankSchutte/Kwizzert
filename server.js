@@ -17,9 +17,9 @@ app.route('/static/*')
         res.sendFile(path.join(__dirname, "build", req.path));
     });
 
-app.route('/team')
+app.route('/item')
     .get((req, res) => {
-        res.sendFile(path.join(__dirname, "team/build/index.html"));
+        res.sendFile(path.join(__dirname, "item/build/index.html"));
     });
 
 app.route('/scorebord')
