@@ -14,7 +14,6 @@ let KwizzertAPI = {
         request
             .get(url + '/api/v1/categories')
             .end(function (err, res) {
-                console.log(res.body);
                 callback(err, res);
             });
     }

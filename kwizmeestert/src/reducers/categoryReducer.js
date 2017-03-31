@@ -9,8 +9,8 @@ const initialState = {
 const categoryReducer = (state = initialState, action) => {
     switch (action.type) {
         case RECEIVE_CATEGORIES:
+            console.log(action.categories);
             if(action.success) {
-                console.log(action.categories);
                 return update(state, {
                     categories: {$set: action.categories}
                 });

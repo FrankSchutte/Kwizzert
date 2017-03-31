@@ -9,7 +9,6 @@ const categoryActionCreator = {
                 if (err || !res.ok) {
                     dispatch({type: RECEIVE_CATEGORIES, success: false});
                 } else {
-                    console.log('OK!');
                     dispatch({type: RECEIVE_CATEGORIES, success: true, categories: res.body});
                 }
             });
