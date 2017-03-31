@@ -181,47 +181,40 @@ Response:
 }
 ```
 
-#### Questions
-##### GET /api/v1/kwizmeestert-questions/:id
-Vraag alle informatie over een vraag op.  
-*Hiervoor moet een session aangemaakt zijn door middel van /api/v1/login.*
-```
-Response:
-{
-    question: "...",
-    answer: "...",
-    category: "..."
-}
-```
-
 ##### GET /api/v1/questions/:id
-Vraag een vraag op.
+Vraag een vraag op.  
+Wanneer een team de vraag ophaalt wordt alleen de vraag en de categorie opgestuurd.  
+Wanneer het scorebord de vraag ophaalt wordt ook het antwoord meegestuurd.
 ```
 Response:
 {
     question: "...",
-    category: "..."
+    category: "...",
+    answer: "...",
 }
 ```
 
 ### Websocket
 ##### Client identificeren
-Elke client moet aangeven wat zijn rol is: kwizmeestert, team of scorebord. 
+Elke client moet aangeven wat zijn rol is: kwizmeestert, team of scorebord.  
+Wanneer de client een team is moet er ook een teamName worden meegestuurd.
 ```
 {
     action: "REGISTER",
     code: "...",
-    type: "quizmaster | team | scoreboard"
+    type: "quizmaster | team | scoreboard",
+    teamName: "..."
 }
 ```
 
-##### Team aanmelden
-Een team kan zich aanmelden voor een kwiz.
+##### Team bevestigd antwoord
+Elk team moet een vraag kunnen bevestigen, het antwoord moet aangepast kunnen worden.
 ```
 {
-    action: "ADD_TEAM",
+    action: "CONFIRM_ANSWER",
     code: "...",
-    teamName: "..."
+    team: "...",
+    answer: "..."
 }
 ```
 
