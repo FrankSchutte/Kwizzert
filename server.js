@@ -14,8 +14,17 @@ app.use('/api/v1', require('./api'));
 
 app.route('/static/*')
     .get((req, res) => {
-        res.sendFile(path.join(__dirname, "build", req.path));
-    });
+    const referer = req.get('Referer');
+    if (referer.includes('/kwizmeestert')) {
+        res.sendFile(path.join(__dirname, 'kwizmeestert/build', req.path));
+    }
+    else if (referer.includes('/team')) {
+        res.sendFIle(path.join(__dirname, 'team/build', req.path));
+    }
+    else if (referer.includes('/scorebord')) {
+        res.sendFile(path.join(__dirname, 'scoreboard/build'));
+    }});
+
 
 app.route('/team')
     .get((req, res) => {
