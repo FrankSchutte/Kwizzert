@@ -1,8 +1,6 @@
 # Kwizzert
-**KWIZ BEHEER API CALLS MOGEN ALLEEN ALS MEESTERT IS INGELOGD.(IETS MET SESSIONS)**
-
 ## Mappen structuur
-Hieronder staat de mappen structuur van Kwizzert.
+Hieronder staat de globale structuur van Kwizzert.
 ```
 Kwizzert/
     team/
@@ -10,19 +8,35 @@ Kwizzert/
         node_modules/
         public/
         src/
+            actions/
+            components/
+            containers/
+            reducers/
+            index.js
         package.json
     kwizmeestert/
         build/
         node_modules/
         public/
         src/
+            actions/
+            components/
+            containers/
+            reducers/
+            index.js
         package.json
     scorebord/
         build/
         node_modules/
         public/
         src/
+            actions/
+            components/
+            containers/
+            reducers/
+            index.js
         package.json
+    server.js
     .gitignore
     LICENSE
     package.json
@@ -76,16 +90,23 @@ Het scorebord app geeft de voortgang van de kwiz weer. Er moet worden getoond we
 ![scorebord-app mockup](./images/scorebord.jpg)
   
 ## Technische specificatie
-Hieronder staat per onderdeel van de applicatie(clients en server) beschreven van welke technologieën gebruik wordt gemaakt.
+Hieronder staat per onderdeel van de applicatie beschreven van welke technologieën gebruik wordt gemaakt.
+
+### Communicatie
+Een eis aan de Kwizzert is dat een groot deel van de communicatie in near real-time is.  
+Om dit te bereiken is er voor gekozen om websockets te gebruiken. Dit zal alleen worden toegepast voor de communicatie tussen de verschillende clients.  
+Voor de overige communicatie is er gekozen voor een REST API, omdat deze niet in near real-time hoeft te gebeuren.
 
 ### Clients
-Alle clients maken gebruikt van react en redux. Communicatie tussen clients zal via websockets gaan, superagent wordt gebruikt om AJAX calls te doen naar de server.
+Alle clients maken gebruikt van react en redux. Er wordt gebruik gemaakt van superagent om AJAX verzoeken naar de server te versturen.
 
 ### Server
-Op de server wordt express gebruikt voor de routing van de client apps en de REST API. De REST API wordt vooral gebruikt om data uit de database te verzenden. Op de server zal ook een MongoDB draaien waarin vragen, categorieën en antwoorden staan.
+Op de server wordt express gebruikt voor de routing van de client apps en de REST API.  
+De REST API wordt vooral gebruikt om data uit de database te verzenden.  
+Op de server zal ook een MongoDB draaien waarin vragen, categorieën en antwoorden staan.
 
 ## Routing
-De index pagina toont een statische pagina met drie knoppen.Deze knoppen verwijzen naar de verschillende applicaties.
+De index pagina toont een statische pagina met drie knoppen. Deze knoppen verwijzen naar de verschillende applicaties.
 
 ### Team-app
 /team
@@ -97,13 +118,9 @@ De index pagina toont een statische pagina met drie knoppen.Deze knoppen verwijz
 /scorebord
 
 ## Communicatie
-Er is gekozen om de communicatie tussen de verschillende onderdelen van Kwizzert af te handelen via websocket en een API. Alle communicatie met de database gaat via een API op de server, alle overige communicatie gaat via websockets.
-
 ### API
 ##### POST /api/v1/login
-De meestert moet zich authenticeren via een sessionId.  
-**Dit moet via een HTTP header gebeuren maar wij weten nog niet hoe.**
-
+De meestert moet zich authenticeren via een sessionId.
 ```
 Body parameters:
 {
@@ -146,26 +163,25 @@ Response:
 ]
 ```
 
-#### Questions
-##### GET /api/v1/questions
+##### GET /api/v1/categories/:categoryName/questions
 Vraag een lijst op van alle vragen in gegeven categorie.  
 *Hiervoor moet een session aangemaakt zijn door middel van /api/v1/login.*
 ```
-Query parameters
-    categoryName: Naam van de categorie. (required)
-
 Response:
-[
-    { 
-        _id: "...",
-        question: "...",
-        answer: "...",
-        category: "..."
-    },
-    { ... }
-]
+{
+    category: "...",
+    questions: [
+        {
+            _id: "...",
+            question: "...",
+            answer: "..."
+        },
+        { ... }
+    ]
+}
 ```
 
+#### Questions
 ##### GET /api/v1/kwizmeestert-questions/:id
 Vraag alle informatie over een vraag op.  
 *Hiervoor moet een session aangemaakt zijn door middel van /api/v1/login.*
@@ -259,13 +275,9 @@ De kwizmeestert keurt vragen goed of fout.
 {
     action: "RATE_ANSWER",
     code: "...",
-    answers: [
-        {
-            team: "...",
-            answer: "...",
-            approved: true | false
-        }
-    ]
+    team: "...",
+    answer: "...",
+    approved: true | false
 }
 ```
 
