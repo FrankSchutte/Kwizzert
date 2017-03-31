@@ -6,7 +6,7 @@ const routingActionCreator = {
         return (dispatch) => {
             dispatch({type: REQUEST_CREATE_QUIZ});
             KwizzertAPI.createQuiz((err, res) => {
-                if (err || !res.ok) {
+                if (err) {
                     dispatch({type: RECEIVE_CREATE_QUIZ, success: false});
                 } else {
                     dispatch({type: RECEIVE_CREATE_QUIZ, success: true});

@@ -7,14 +7,21 @@ let KwizzertAPI = {
         request
             .get(url + '/api/v1/kwiz/create')
             .end(function (err, res) {
-                callback(err, res);
+                callback(err, JSON.parse(res.text));
             });
     },
     fetchCategories(callback) {
         request
             .get(url + '/api/v1/categories')
             .end(function (err, res) {
-                callback(err, res);
+                callback(err, JSON.parse(res.text));
+            });
+    },
+    fetchQuestion(id, callback) {
+        request
+            .get(url + '/api/v1/kwizmeestert-question/' + id)
+            .end(function (err, res) {
+                callback(err, JSON.parse(res.text));
             });
     }
 };

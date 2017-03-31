@@ -6,10 +6,10 @@ const categoryActionCreator = {
         return (dispatch) => {
             dispatch({type: REQUEST_CATEGORIES});
             KwizzertAPI.fetchCategories((err, res) => {
-                if (err || !res.ok) {
+                if (err) {
                     dispatch({type: RECEIVE_CATEGORIES, success: false});
                 } else {
-                    dispatch({type: RECEIVE_CATEGORIES, success: true, categories: res.body});
+                    dispatch({type: RECEIVE_CATEGORIES, success: true, categories: res});
                 }
             });
         };
