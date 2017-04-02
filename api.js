@@ -9,7 +9,7 @@ api.post('/login', (req, res) => {
 });
 
 // KWIZ/CREATE
-api.get('/kwiz/create', (req, res) => {
+api.post('/kwiz/create', (req, res) => {
     const response = {
         code: "CHARACTERS"
     };
@@ -38,26 +38,8 @@ api.get('/categories', (req, res) => {
     res.status(200).send(JSON.stringify(response));
 });
 
-// QUESTIONS
-api.get('/questions', (req, res) => {
-    const response = [
-        {
-            _id: "iets",
-            question: "Hoeveel tenen heeft een geit?",
-            answer: "veel",
-            category: "DIEREN"
-        }, {
-            _id: "idieeeee",
-            question: "Wat doet de wasmachine?",
-            answer: "kfhkjfhakjhak",
-            category: "eerste categorie"
-        }
-    ];
-    res.status(200).send(JSON.stringify(response));
-});
-
-// QUESTIONS/CATEGORYNAME/QUESTIONS
-api.get('/questions/:categoryName/questions', (req, res) => {
+// CATEGORIES/CATEGORYNAME/QUESTIONS
+api.get('/categories/:categoryName/questions', (req, res) => {
     const response = {
         category: "DIEREN",
         questions: [
@@ -76,21 +58,10 @@ api.get('/questions/:categoryName/questions', (req, res) => {
     res.status(200).send(JSON.stringify(response));
 });
 
-
 // QUESTIONS/ID
 api.get('/questions/:id', (req, res) => {
     const response = {
         question: "Hoeveel tenen heeft een geit?",
-        category: "DIEREN"
-    };
-    res.status(200).send(JSON.stringify(response));
-});
-
-// KWIZMEESTERT-QUESTIONS/ID
-api.get('/kwizmeestert-questions/:id', (req, res) => {
-    const response = {
-        question: "Hoeveel tenen heeft een geit?",
-        answer: "veel",
         category: "DIEREN"
     };
     res.status(200).send(JSON.stringify(response));
