@@ -17,9 +17,9 @@ let KwizzertAPI = {
                 callback(err, JSON.parse(res.text));
             });
     },
-    fetchQuestion(id, callback) {
+    fetchQuestions(categoryName, callback) {
         request
-            .get(url + '/api/v1/kwizmeestert-question/' + id)
+            .get(url + '/api/v1/categories/' +  categoryName + '/questions')
             .end(function (err, res) {
                 callback(err, JSON.parse(res.text));
             });

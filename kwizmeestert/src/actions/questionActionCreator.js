@@ -1,6 +1,20 @@
-import {CHOOSE_QUESTION, TOGGLE_QUESTION_ACTIVITY, TOGGLE_ANSWER, CLOSE_QUESTION} from '../constants';
+import {REQUEST_QUESTIONS, RECEIVE_QUESTIONS, CHOOSE_QUESTION, TOGGLE_QUESTION_ACTIVITY, TOGGLE_ANSWER, CLOSE_QUESTION} from '../constants';
+
+import KwizzertAPI from '../kwizzertAPI';
 
 const questionActionCreator = {
+    fetchQuestions() {
+        return (dispatch) => {
+            dispatch({type: REQUEST_QUESTIONS});
+            KwizzertAPI.fetchQuestions('DIEREN', (err, res) => {
+                if(err) {
+                    dispatch({type: RECEIVE_QUESTIONS, success: false});
+                } else {
+                    dispatch({type: RECEIVE_QUESTIONS, success: true, category: res.categoryName, questions: res.questions});
+                }
+            });
+        };
+    },
     chooseQuestion(question) {
         return {type: CHOOSE_QUESTION, question: question};
     },
@@ -11,7 +25,7 @@ const questionActionCreator = {
         return {type: TOGGLE_ANSWER, teamName: teamName};
     },
     closeQuestion(questionCount) {
-        return {type: CLOSE_QUESTION, questionCount: questionCount};
+        return {type: CLOSE_QUESTION};
     }
 };
 

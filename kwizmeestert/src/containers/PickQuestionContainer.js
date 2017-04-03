@@ -9,6 +9,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    fetchQuestions: () => dispatch(questionActionReducer.fetchQuestions()),
     onQuestionSelect: (question) => dispatch(questionActionReducer.chooseQuestion(question))
 });
 
