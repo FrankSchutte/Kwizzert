@@ -213,9 +213,7 @@ Een kwizmeestert kan ervoor kiezen om een team af te keuren.
 {
     action: "KICK_TEAM",
     code: "...",
-    team: {
-        teamName: "..."
-    }
+    teamName: "..."
 }
 
 ```
@@ -228,8 +226,7 @@ Een kwizmeestert bepaald welke teams meedoen en start de kwiz met deze teams.
     code: "...",
     teams: [
         {
-            teamName: "...",
-            allowed: true | false
+            teamName: "..."
         },
         { ... }
     ]
