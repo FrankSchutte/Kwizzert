@@ -6,7 +6,7 @@ import CreateQuizContainer from "../containers/CreateQuizContainer";
 import PickTeamsContainer from "../containers/PickTeamsContainer";
 import PickCategoriesContainer from "../containers/PickCategoriesContainer";
 import PickQuestionContainer from '../containers/PickQuestionContainer';
-import Question from '../containers/QuestionContainer';
+import QuestionContainer from '../containers/QuestionContainer';
 
 class Main extends Component {
     render() {
@@ -25,7 +25,7 @@ class Main extends Component {
                 page = <PickQuestionContainer/>;
                 break;
             case QUESTION:
-                page = <Question/>;
+                page = <QuestionContainer/>;
                 break;
             default:
                 page = <CreateQuizContainer/>;

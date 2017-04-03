@@ -28,12 +28,8 @@ const routingReducer = (state = initialState, action) => {
                 currentPage: {$set: QUESTION}
             });
         case CLOSE_QUESTION:
-            let page;
-            if(action.questionCount < 12) {
-                page = PICK_QUESTION
-            }
             return update(state, {
-                currentPage: {$set: page}
+                currentPage: {$set: PICK_QUESTION}
             });
         default:
             return state;

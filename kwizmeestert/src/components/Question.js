@@ -28,7 +28,7 @@ class Question extends Component {
                     />)
                 )}
                 <hr/>
-                <button onClick={this.props.onCloseQuestion.bind(this, this.props.questionCount)}>Volgende vraag</button>
+                <button onClick={this.props.onCloseQuestion}>Volgende vraag</button>
             </div>
         )
     }

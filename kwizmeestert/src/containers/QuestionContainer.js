@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     onToggleQuestionActivity: () => dispatch(questionActionCreator.toggleQuestionActivity()),
     onToggleAnswer: (teamName) => dispatch(questionActionCreator.toggleAnswer(teamName)),
-    onCloseQuestion: (questionCount) => dispatch(questionActionCreator.closeQuestion(questionCount))
+    onCloseQuestion: () => dispatch(questionActionCreator.closeQuestion())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Question);
