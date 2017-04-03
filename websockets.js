@@ -5,6 +5,7 @@ const socketMap = new WeakMap();
 module.exports.create = (httpServer) => (
     new ws.Server({
         server: httpServer,
+        port: 3001,
         path: '/ws'
     })
 );
@@ -87,7 +88,7 @@ const configure = (wsServer) => {
 const sendTeamToMaster = (wsServer, teamName, quizcode) => {
     wsServer.clients.forEach((client) => {
         const clientInfo = socketMap.get(client);
-        if (clientInfo.code === quizcode && clientInfo.type === types.quizmaster) {
+        if (clientInfo && clientInfo.code === quizcode && clientInfo.type === types.quizmaster) {
             const message = {
                 action: 'ADD_TEAM',
                 teamName: teamName
@@ -102,7 +103,8 @@ const sendMessageToRefusedTeams = (wsServer, teams, quizcode) => {
         if (!team.allowed) {
             wsServer.clients.forEach((client) => {
                 const clientInfo = socketMap.get(client);
-                if (clientInfo.code === quizcode &&
+                if (clientInfo &&
+                    clientInfo.code === quizcode &&
                     clientInfo.type === types.team &&
                     clientInfo.teamName === team.teamName) {
                     client.close();
@@ -116,7 +118,7 @@ const sendMessageToRefusedTeams = (wsServer, teams, quizcode) => {
 const sendQuestionIdToClients = (wsServer, questionId, quizcode) => {
     wsServer.clients.forEach((client) => {
         const clientInfo = socketMap.get(client);
-        if (clientInfo.code === quizcode && clientInfo.type !== types.quizmaster) {
+        if (clientInfo && clientInfo.code === quizcode && clientInfo.type !== types.quizmaster) {
             const message = {
                 action: 'PICK_QUESTION',
                 questionId: questionId
@@ -129,7 +131,7 @@ const sendQuestionIdToClients = (wsServer, questionId, quizcode) => {
 const sendStartQuestionNoticeToClients = (wsServer, quizcode) => {
     wsServer.clients.forEach((client) => {
         const clientInfo = socketMap.get(client);
-        if (clientInfo.code === quizcode && clientInfo.type !== types.quizmaster) {
+        if (clientInfo && clientInfo.code === quizcode && clientInfo.type !== types.quizmaster) {
             const message = {
                 action: 'START_QUESTION'
             };
@@ -141,7 +143,7 @@ const sendStartQuestionNoticeToClients = (wsServer, quizcode) => {
 const sendQuestionRatingToScoreboard = (wsServer, team, answer, approved, quizcode) => {
     wsServer.clients.forEach((client) => {
         const clientInfo = socketMap.get(client);
-        if (clientInfo.code === quizcode && clientInfo.type === types.scoreboard) {
+        if (clientInfo && clientInfo.code === quizcode && clientInfo.type === types.scoreboard) {
             const message = {
                 action: 'RATE_ANSWER',
                 team: team,
@@ -156,7 +158,7 @@ const sendQuestionRatingToScoreboard = (wsServer, team, answer, approved, quizco
 const sendAnswerToMaster = (wsServer, team, answer, quizcode) => {
     wsServer.clients.forEach((client) => {
         const clientInfo = socketMap.get(client);
-        if (clientInfo.code === quizcode && clientInfo.type === types.quizmaster) {
+        if (clientInfo && clientInfo.code === quizcode && clientInfo.type === types.quizmaster) {
             const message = {
                 action: 'CONFIRM_ANSWER',
                 team: team,
@@ -170,7 +172,7 @@ const sendAnswerToMaster = (wsServer, team, answer, quizcode) => {
 const sendCloseQuestionNoticeToClients = (wsServer, quizcode) => {
     wsServer.clients.forEach((client) => {
         const clientInfo = socketMap.get(client);
-        if (clientInfo.code === quizcode && clientInfo.type !== types.quizmaster) {
+        if (clientInfo && clientInfo.code === quizcode && clientInfo.type !== types.quizmaster) {
             const message = {
                 action: 'CLOSE_QUESTION'
             };
@@ -182,7 +184,7 @@ const sendCloseQuestionNoticeToClients = (wsServer, quizcode) => {
 const sendRoundFinishedNoticeToScoreboard = (wsServer, quizcode) => {
     wsServer.clients.forEach((client) => {
         const clientInfo = socketMap.get(client);
-        if (clientInfo.code === quizcode && clientInfo.type === types.scoreboard) {
+        if (clientInfo && clientInfo.code === quizcode && clientInfo.type === types.scoreboard) {
             const message = {
                 action: 'ROUND_FINISHED'
             };
@@ -194,7 +196,7 @@ const sendRoundFinishedNoticeToScoreboard = (wsServer, quizcode) => {
 const sendQuizFinishedNoticeToClients = (wsServer, quizcode) => {
     wsServer.clients.forEach((client) => {
         const clientInfo = socketMap.get(client);
-        if (clientInfo.code === quizcode && clientInfo.type !== types.quizmaster) {
+        if (clientInfo && clientInfo.code === quizcode && clientInfo.type !== types.quizmaster) {
             const message = {
                 action: 'QUIZ_FINISHED'
             };
