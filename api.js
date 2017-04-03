@@ -4,12 +4,12 @@ const secrets = require('./secrets');
 const api = express.Router();
 
 // LOGIN
-api.post('/login', function (req, res) {
+api.post('/login', (req, res) => {
     res.sendStatus(200);
 });
 
 // KWIZ/CREATE
-api.get('/kwiz/create', function (req, res) {
+api.post('/kwiz/create', (req, res) => {
     const response = {
         code: "CHARACTERS"
     };
@@ -17,7 +17,7 @@ api.get('/kwiz/create', function (req, res) {
 });
 
 // KWIZ/CODE
-api.get('/kwiz/:code', function (req, res) {
+api.get('/kwiz/:code', (req, res) => {
     const response = {
         status: "open"
     };
@@ -25,7 +25,7 @@ api.get('/kwiz/:code', function (req, res) {
 });
 
 // CATEGORIES
-api.get('/categories', function (req, res) {
+api.get('/categories', (req, res) => {
     const response = [
         {
             categoryName: "eerste categorie"
@@ -38,38 +38,30 @@ api.get('/categories', function (req, res) {
     res.status(200).send(JSON.stringify(response));
 });
 
-// QUESTIONS
-api.get('/questions', function (req, res) {
-    const response = [
-        {
-            _id: "iets",
-            question: "Hoeveel tenen heeft een geit?",
-            answer: "veel",
-            category: "DIEREN"
-        }, {
-            _id: "idieeeee",
-            question: "Wat doet de wasmachine?",
-            answer: "kfhkjfhakjhak",
-            category: "eerste categorie"
-        }
-    ];
-    res.status(200).send(JSON.stringify(response));
-});
-
-// QUESTIONS/ID
-api.get('/questions/:id', function (req, res) {
+// CATEGORIES/CATEGORYNAME/QUESTIONS
+api.get('/categories/:categoryName/questions', (req, res) => {
     const response = {
-        question: "Hoeveel tenen heeft een geit?",
-        category: "DIEREN"
+        category: "DIEREN",
+        questions: [
+            {
+                _id: "iets",
+                question: "Hoeveel tenen heeft een geit?",
+                answer: "veel"
+            },
+            {
+                _id: "shdasjkdhsajkdh",
+                question: "Hoeveel dieren heeft Freek Vonk doodgestoken?",
+                answer: "Eén hele grote vis"
+            }
+        ]
     };
     res.status(200).send(JSON.stringify(response));
 });
 
-// KWIZMEESTERT-QUESTIONS/ID
-api.get('/kwizmeestert-questions/:id', function (req, res) {
+// QUESTIONS/ID
+api.get('/questions/:id', (req, res) => {
     const response = {
         question: "Hoeveel tenen heeft een geit?",
-        answer: "veel",
         category: "DIEREN"
     };
     res.status(200).send(JSON.stringify(response));
