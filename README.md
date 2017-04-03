@@ -213,7 +213,7 @@ Elk team moet een vraag kunnen bevestigen, het antwoord moet aangepast kunnen wo
 {
     action: "CONFIRM_ANSWER",
     code: "...",
-    team: "...",
+    teamName: "...",
     answer: "..."
 }
 ```
