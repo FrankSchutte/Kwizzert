@@ -38,16 +38,20 @@ const configure = (wsServer) => {
                     socketMap.set(websocket, newClientInfo);
                     break;
 
-                case 'CONFIRM_ANSWER':
-                    sendAnswerToMaster(wsServer, messageObject.team, messageObject.answer, messageObject.code);
+                case 'KICK_TEAM':
+                    sendMessageToRefusedTeam(wsServer, messageObject.teamName, messageObject.code);
                     break;
 
                 case 'START_QUIZ':
-                    sendMessageToRefusedTeams(wsServer, messageObject.teams, messageObject.code);
+                    sendTeamsToScoreboard(wsServer, messageObject.teams, messageObject.code);
                     break;
 
                 case 'PICK_QUESTION':
                     sendQuestionIdToClients(wsServer, messageObject.questionId, messageObject.code);
+                    break;
+
+                case 'CONFIRM_ANSWER':
+                    sendAnswerToMaster(wsServer, messageObject.teamName, messageObject.answer, messageObject.code);
                     break;
 
                 case 'START_QUESTION':
@@ -98,18 +102,27 @@ const sendTeamToMaster = (wsServer, teamName, quizcode) => {
     });
 };
 
-const sendMessageToRefusedTeams = (wsServer, teams, quizcode) => {
-    teams.forEach((team) => {
-        if (!team.allowed) {
-            wsServer.clients.forEach((client) => {
-                const clientInfo = socketMap.get(client);
-                if (clientInfo &&
-                    clientInfo.code === quizcode &&
-                    clientInfo.type === types.team &&
-                    clientInfo.teamName === team.teamName) {
-                    client.close();
-                }
-            });
+const sendTeamsToScoreboard = (wsServer, teams, quizcode) => {
+    wsServer.clients.forEach((client) => {
+        const clientInfo = socketMap.get(client);
+        if (clientInfo && clientInfo.code === quizcode && clientInfo.type === type.scoreboard) {
+            const message = {
+                action: 'START_QUIZ',
+                teams: teams
+            };
+            client.send(JSON.stringify(message));
+        }
+    });
+};
+
+const sendMessageToRefusedTeam = (wsServer, teamName, quizcode) => {
+    wsServer.clients.forEach((client) => {
+        const clientInfo = socketMap.get(client);
+        if (clientInfo &&
+            clientInfo.code === quizcode &&
+            clientInfo.type === types.team &&
+            clientInfo.teamName === teamName) {
+            client.close();
         }
     });
 };

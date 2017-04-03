@@ -215,7 +215,6 @@ Een kwizmeestert kan ervoor kiezen om een team af te keuren.
     code: "...",
     teamName: "..."
 }
-
 ```
 
 ##### Kwizmeestert start een kwiz
