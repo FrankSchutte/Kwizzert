@@ -8,6 +8,7 @@ export const QUESTION = 'question';
 // ACTIONS
 export const REQUEST_CREATE_QUIZ = 'request create quiz';
 export const RECEIVE_CREATE_QUIZ = 'receive create quiz';
+export const ADD_TEAM = 'add team';
 export const TOGGLE_TEAM = 'toggle team';
 export const START_QUIZ = 'start quiz';
 export const REQUEST_CATEGORIES = 'request categories';

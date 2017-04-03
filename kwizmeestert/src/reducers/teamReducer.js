@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 
-import {TOGGLE_TEAM} from '../constants';
+import {ADD_TEAM, TOGGLE_TEAM} from '../constants';
 
 const initialState = {
     teams: [{
@@ -14,6 +14,10 @@ const initialState = {
 
 const teamReducer = (state = initialState, action) => {
     switch (action.type) {
+        case ADD_TEAM:
+            return update(state, {
+                teams: {$push: [{teamName: action.teamName}]}
+            });
         case TOGGLE_TEAM:
             let index;
             state.teams.forEach(function (team, i) {

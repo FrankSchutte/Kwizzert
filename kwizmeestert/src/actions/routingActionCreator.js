@@ -1,15 +1,23 @@
 import {REQUEST_CREATE_QUIZ, RECEIVE_CREATE_QUIZ, START_QUIZ, START_ROUND} from '../constants';
-import KwizzertAPI from '../kwizzertAPI';
+import kwizzertAPI from '../kwizzertAPI';
+import {webSocket} from '../kwizzertWebSocket';
 
 const routingActionCreator = {
     createQuiz() {
         return (dispatch) => {
             dispatch({type: REQUEST_CREATE_QUIZ});
-            KwizzertAPI.createQuiz((err, res) => {
+            kwizzertAPI.createQuiz((err, res) => {
                 if (err) {
                     dispatch({type: RECEIVE_CREATE_QUIZ, success: false});
                 } else {
-                    dispatch({type: RECEIVE_CREATE_QUIZ, success: true});
+                    const message = {
+                        action: 'REGISTER',
+                        code: res.code,
+                        type: 'quizmaster'
+                    };
+
+                    webSocket.send(JSON.stringify(message));
+                    dispatch({type: RECEIVE_CREATE_QUIZ, success: true, code: res.code});
                 }
             });
         };
