@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 
 import AppContainer from './components/Main';
 import reducers from './reducers';
+import './kwizzertWebsocket';
 import './index.css';
 
 let store;

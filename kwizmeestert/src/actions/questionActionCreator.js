@@ -1,4 +1,4 @@
-import {REQUEST_QUESTIONS, RECEIVE_QUESTIONS, CHOOSE_QUESTION, TOGGLE_QUESTION_ACTIVITY, TOGGLE_ANSWER, CLOSE_QUESTION} from '../constants';
+import {REQUEST_QUESTIONS, RECEIVE_QUESTIONS, CHOOSE_QUESTION, TOGGLE_QUESTION_ACTIVITY, CONFIRM_ANSWER, TOGGLE_ANSWER, CLOSE_QUESTION} from '../constants';
 
 import KwizzertAPI from '../kwizzertAPI';
 
@@ -20,6 +20,9 @@ const questionActionCreator = {
     },
     toggleQuestionActivity() {
         return {type: TOGGLE_QUESTION_ACTIVITY};
+    },
+    confirmAnswer(answer) {
+        return {type: CONFIRM_ANSWER, answer: answer}
     },
     toggleAnswer(teamName) {
         return {type: TOGGLE_ANSWER, teamName: teamName};

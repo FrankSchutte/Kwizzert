@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 
-import {ADD_ANSWER, TOGGLE_ANSWER, CLOSE_QUESTION} from '../constants';
+import {CONFIRM_ANSWER, TOGGLE_ANSWER, CLOSE_QUESTION} from '../constants';
 
 const initialState = {
     answers: [{
@@ -15,11 +15,19 @@ const initialState = {
 };
 
 const answerReducer = (state = initialState, action) => {
+    let index;
     switch (action.type) {
-        case ADD_ANSWER:
-            return state;
+        case CONFIRM_ANSWER:
+            state.answers.forEach(function (answer, i) {
+                if (action.teamName === answer.teamName) {
+                    index = i;
+                }
+            });
+
+            return update(state, {
+                answers: {[index]: {answer: action.answer}}
+            });
         case TOGGLE_ANSWER:
-            let index;
             state.answers.forEach(function (answer, i) {
                 if (action.teamName === answer.teamName) {
                     index = i;

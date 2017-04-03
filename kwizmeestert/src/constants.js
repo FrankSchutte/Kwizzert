@@ -19,4 +19,5 @@ export const RECEIVE_QUESTIONS = 'receive questions';
 export const CHOOSE_QUESTION = 'choose question';
 export const TOGGLE_QUESTION_ACTIVITY = 'toggle question activity';
 export const TOGGLE_ANSWER = 'toggle answer';
+export const CONFIRM_ANSWER = 'confirm answer';
 export const CLOSE_QUESTION = 'stop question';
