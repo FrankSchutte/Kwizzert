@@ -25,7 +25,6 @@ app.route('/static/*')
         res.sendFile(path.join(__dirname, 'scoreboard/build'));
     }});
 
-
 app.route('/team')
     .get((req, res) => {
         res.sendFile(path.join(__dirname, "team/build/index.html"));
@@ -46,10 +45,14 @@ app.route('/')
         res.sendFile(path.join(__dirname, 'index.html'));
     });
 
-app.route('/*')
-    .get((req, res) => {
-        res.sendFile(path.join(__dirname, 'index.html'));
-    });
+// Test route
+app.use(express.static(path.join(__dirname, 'tests')));
+
+
+// app.route('/*')
+//     .get((req, res) => {
+//         res.sendFile(path.join(__dirname, 'index.html'));
+//     });
 
 app.listen(port, () => {
     console.log("Server started and listening to ::" + port);
