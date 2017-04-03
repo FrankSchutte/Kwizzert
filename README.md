@@ -207,15 +207,15 @@ Wanneer de client een team is moet er ook een teamName worden meegestuurd.
 }
 ```
 
-##### Team bevestigd antwoord
-Elk team moet een vraag kunnen bevestigen, het antwoord moet aangepast kunnen worden.
+#### Kwizmeestert weigert team
+Een kwizmeestert kan ervoor kiezen om een team af te keuren.
 ```
 {
-    action: "CONFIRM_ANSWER",
+    action: "KICK_TEAM",
     code: "...",
-    team: "...",
-    answer: "..."
+    teamName: "..."
 }
+
 ```
 
 ##### Kwizmeestert start een kwiz
@@ -226,8 +226,7 @@ Een kwizmeestert bepaald welke teams meedoen en start de kwiz met deze teams.
     code: "...",
     teams: [
         {
-            teamName: "...",
-            allowed: true | false
+            teamName: "..."
         },
         { ... }
     ]
@@ -241,6 +240,17 @@ Een kwizmeestert kiest een vraag, de andere clients halen de vraag op.
     action: "PICK_QUESTION",
     code: "...",
     questionId: "..."
+}
+```
+
+##### Team bevestigd antwoord
+Elk team moet een vraag kunnen bevestigen, het antwoord moet aangepast kunnen worden.
+```
+{
+    action: "CONFIRM_ANSWER",
+    code: "...",
+    team: "...",
+    answer: "..."
 }
 ```
 
