@@ -1,6 +1,6 @@
 import {REQUEST_CREATE_QUIZ, RECEIVE_CREATE_QUIZ, START_QUIZ, START_ROUND} from '../constants';
 import kwizzertAPI from '../kwizzertAPI';
-import {send} from '../kwizzertWebSocket';
+import {webSocket} from '../kwizzertWebSocket';
 
 const routingActionCreator = {
     createQuiz() {
@@ -16,7 +16,7 @@ const routingActionCreator = {
                         type: 'quizmaster'
                     };
 
-                    send(JSON.stringify(message));
+                    webSocket.send(JSON.stringify(message));
                     dispatch({type: RECEIVE_CREATE_QUIZ, success: true, code: res.code});
                 }
             });

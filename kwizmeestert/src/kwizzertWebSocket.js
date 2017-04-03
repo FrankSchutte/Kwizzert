@@ -1,8 +1,7 @@
 import {ADD_TEAM, CONFIRM_ANSWER} from './constants';
-import questionActionCreator from './actions/questionActionCreator';
 import teamActionCreator from './actions/teamActionCreator';
 
-let webSocket;
+export let webSocket;
 
 export function initWebSocket(store) {
     webSocket = new WebSocket('ws://localhost:3001/ws');
@@ -27,7 +26,3 @@ export function initWebSocket(store) {
        console.log('connection closed with server');
     };
 }
-
-export function send(message) {
-    webSocket.send(message)
-};
