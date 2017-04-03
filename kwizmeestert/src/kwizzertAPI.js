@@ -2,10 +2,10 @@ import request from 'superagent';
 
 const url = 'http://localhost:3000';
 
-let KwizzertAPI = {
+let kwizzertAPI = {
     createQuiz(callback) {
         request
-            .get(url + '/api/v1/kwiz/create')
+            .post(url + '/api/v1/kwiz/create')
             .end(function (err, res) {
                 callback(err, JSON.parse(res.text));
             });
@@ -26,4 +26,4 @@ let KwizzertAPI = {
     }
 };
 
-export default KwizzertAPI;
+export default kwizzertAPI;
