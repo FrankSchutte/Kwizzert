@@ -1,10 +1,13 @@
 import {combineReducers} from 'redux';
 
-import pageReducer from './pageReducer';
+import answerReducer from './answerReducer';
+import categoryReducer from './categoryReducer';
+import routingReducer from './routingReducer';
 import teamReducer from './teamReducer';
+import questionReducer from './questionReducer';
 
 const reducers = combineReducers({
-    pageReducer, teamReducer
+    answerReducer, categoryReducer, routingReducer, teamReducer, questionReducer
 });
 
 export default reducers;

@@ -1,14 +1,14 @@
 import {connect} from 'react-redux';
 
 import CreateQuiz from '../components/CreateQuiz';
-import QuizActionCreator from '../actions/quizActionCreator';
+import routingActionCreator from '../actions/routingActionCreator';
 
 const mapStateToProps = (state) => ({
 
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onOpenQuiz: () => dispatch(QuizActionCreator.openQuiz())
+    onCreateQuiz: () => dispatch(routingActionCreator.createQuiz())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateQuiz);

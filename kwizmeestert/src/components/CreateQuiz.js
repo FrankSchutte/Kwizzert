@@ -5,14 +5,14 @@ class CreateQuiz extends Component {
         return (
             <div>
                 <h2>Kwiz openen</h2>
-                <button onClick={this.props.onOpenQuiz}>Open</button>
+                <button onClick={this.props.onCreateQuiz}>Open</button>
             </div>
         );
     }
 }
 
 CreateQuiz.propTypes = {
-    onOpenQuiz: PropTypes.func.isRequired
+    onCreateQuiz: PropTypes.func.isRequired
 };
 
 export default CreateQuiz;
