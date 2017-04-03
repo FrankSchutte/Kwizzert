@@ -1,18 +1,30 @@
+import update from 'immutability-helper';
+
+import {TOGGLE_TEAM} from '../constants';
+
 const initialState = {
     teams: [{
-        name: 'team 1',
-        allowed: false
+        teamName: 'team 1'
     }, {
-        name: 'team 2',
-        allowed: false
+        teamName: 'team 2'
     }, {
-        name: 'team 3',
-        allowed: false
+        teamName: 'team 3'
     }]
 };
 
 const teamReducer = (state = initialState, action) => {
     switch (action.type) {
+        case TOGGLE_TEAM:
+            let index;
+            state.teams.forEach(function (team, i) {
+                if(action.team === team) {
+                    index = i;
+                }
+            });
+
+            return update(state, {
+                teams: {[index]: {approved: {$set: !state.teams[index].approved}}}
+            });
         default:
             return state;
     }

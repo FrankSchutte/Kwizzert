@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
-import ApproveTeam from './ApproveTeam';
+import ListItem from './ListItem';
 
 class PickTeams extends Component {
     onStartQuiz = () => {
@@ -8,12 +8,19 @@ class PickTeams extends Component {
     };
 
     render() {
-        const approveTeams = this.props.teams.map((team) => <ApproveTeam key={team.name} name={team.name} approved={team.approved}/>);
+        const teams = this.props.teams.map((team) => (
+            <ListItem
+                key={team.teamName}
+                checked={team.approved ? 'checked' : ''}
+                name={team.teamName}
+                onClickHandler={this.props.onToggleTeam.bind(this, team)}
+            />)
+        );
 
         return (
             <div>
-                <h1>Pick Teams</h1>
-                {approveTeams}
+                <h1>Teams kiezen</h1>
+                {teams}
                 <button onClick={this.onStartQuiz}>Starten</button>
             </div>
         )
@@ -22,7 +29,7 @@ class PickTeams extends Component {
 
 PickTeams.propTypes = {
     teams: PropTypes.array.isRequired,
-    webSocket: PropTypes.instanceOf(WebSocket).isRequired,
+    onToggleTeam: PropTypes.func.isRequired,
     onStartQuiz: PropTypes.func.isRequired
 };
 
