@@ -26,7 +26,6 @@ const questionReducer = (state = initialState, action) => {
             });
         case CLOSE_QUESTION:
         case CLOSE_ROUND:
-            console.log(action.questionCount);
             return update(state, {
                 questionCount: {$set: action.questionCount}
             });

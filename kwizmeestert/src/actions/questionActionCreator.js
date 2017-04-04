@@ -50,10 +50,10 @@ const questionActionCreator = {
         questionCount++;
 
         if (questionCount < 12) {
+            kwizzertWebSocket.closeQuestion(code);
             return ({type: CLOSE_QUESTION, questionCount: questionCount});
         }
         questionCount = 0;
-
         kwizzertWebSocket.closeRound(code);
         return ({type: CLOSE_ROUND, questionCount: questionCount});
     }

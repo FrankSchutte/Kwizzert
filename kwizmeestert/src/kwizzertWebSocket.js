@@ -1,8 +1,9 @@
 import teamActionCreator from './actions/teamActionCreator';
+import questionActionCreator from './actions/questionActionCreator';
 
 let webSocket;
 
-let kwizzertWebSocket = {
+const kwizzertWebSocket = {
     init (store) {
         webSocket = new WebSocket('ws://localhost:3001/ws');
 
@@ -16,6 +17,14 @@ let kwizzertWebSocket = {
             switch (message.action) {
                 case 'ADD_TEAM':
                     store.dispatch(teamActionCreator.addTeam(message.teamName));
+                    break;
+                case 'CONFIRM_ANSWER':
+                    const answer = {
+                        teamName: message.teamName,
+                        answer: message.answer
+                    };
+
+                    store.dispatch(questionActionCreator.confirmAnswer(answer));
                     break;
                 default:
                     break;
@@ -76,6 +85,13 @@ let kwizzertWebSocket = {
             teamName: answer.teamName,
             answer: answer.answer,
             approved: answer.approved
+        };
+
+        webSocket.send(JSON.stringify(message));
+    },
+    closeQuestion(code) {
+        const message = {
+            code: code
         };
 
         webSocket.send(JSON.stringify(message));

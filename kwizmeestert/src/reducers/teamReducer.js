@@ -3,13 +3,7 @@ import update from 'immutability-helper';
 import {ADD_TEAM, TOGGLE_TEAM} from '../constants';
 
 const initialState = {
-    teams: [{
-        teamName: 'team 1'
-    }, {
-        teamName: 'team 2'
-    }, {
-        teamName: 'team 3'
-    }]
+    teams: []
 };
 
 const teamReducer = (state = initialState, action) => {
