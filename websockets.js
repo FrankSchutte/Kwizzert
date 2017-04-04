@@ -64,8 +64,8 @@ const configure = (wsServer) => {
 
                 case 'RATE_ANSWER':
                     sendQuestionRatingToScoreboard(wsServer,
+                        messageObject.teamName,
                         messageObject.answer,
-                        messageObject.team,
                         messageObject.approved,
                         messageObject.code);
                     break;
@@ -105,7 +105,7 @@ const sendTeamToMaster = (wsServer, teamName, quizcode) => {
 const sendTeamsToScoreboard = (wsServer, teams, quizcode) => {
     wsServer.clients.forEach((client) => {
         const clientInfo = socketMap.get(client);
-        if (clientInfo && clientInfo.code === quizcode && clientInfo.type === type.scoreboard) {
+        if (clientInfo && clientInfo.code === quizcode && clientInfo.type === types.scoreboard) {
             const message = {
                 action: 'START_QUIZ',
                 teams: teams
@@ -159,7 +159,7 @@ const sendQuestionRatingToScoreboard = (wsServer, team, answer, approved, quizco
         if (clientInfo && clientInfo.code === quizcode && clientInfo.type === types.scoreboard) {
             const message = {
                 action: 'RATE_ANSWER',
-                team: team,
+                teamName: team,
                 answer: answer,
                 approved: approved
             };
@@ -174,7 +174,7 @@ const sendAnswerToMaster = (wsServer, team, answer, quizcode) => {
         if (clientInfo && clientInfo.code === quizcode && clientInfo.type === types.quizmaster) {
             const message = {
                 action: 'CONFIRM_ANSWER',
-                team: team,
+                teamName: team,
                 answer: answer
             };
             client.send(JSON.stringify(message));
