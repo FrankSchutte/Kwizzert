@@ -215,7 +215,6 @@ Een kwizmeestert kan ervoor kiezen om een team af te keuren.
     code: "...",
     teamName: "..."
 }
-
 ```
 
 ##### Kwizmeestert start een kwiz
@@ -249,7 +248,7 @@ Elk team moet een vraag kunnen bevestigen, het antwoord moet aangepast kunnen wo
 {
     action: "CONFIRM_ANSWER",
     code: "...",
-    team: "...",
+    teamName: "...",
     answer: "..."
 }
 ```
@@ -278,7 +277,7 @@ De kwizmeestert keurt vragen goed of fout.
 {
     action: "RATE_ANSWER",
     code: "...",
-    team: "...",
+    teamName: "...",
     answer: "...",
     approved: true | false
 }

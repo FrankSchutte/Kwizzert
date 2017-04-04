@@ -1,7 +1,6 @@
 var socket;
 var connect_button = document.getElementById('connect_button');
 var register_button = document.getElementById('register_button');
-var confirm_button = document.getElementById('confirm_button');
 var status_header = document.getElementById('status');
 
 const createSocket = () => {
@@ -11,6 +10,10 @@ const createSocket = () => {
         const data = JSON.parse(event.data);
         console.log(data);
         switch(data.action) {
+            case 'START_QUIZ':
+                status_header.innerHTML = 'Started quiz with ' + data.teams.length +' teams';
+                break;
+
             case 'PICK_QUESTION':
                 status_header.innerHTML = 'Picked question ' + data.questionId;
                 break;
@@ -23,6 +26,16 @@ const createSocket = () => {
                 status_header.innerHTML = 'Question closed';
                 break;
 
+            case 'RATE_ANSWER':
+                status_header.innerHTML = 'Team: ' + data.teamName +
+                        '<br/>Answer: ' + data.answer +
+                        '<br/>Approved: ' + data.approved;
+                break;
+
+            case 'ROUND_FINISHED':
+                status_header.innerHTML = 'Round finished';
+                break;
+
             case 'QUIZ_FINISHED':
                 status_header.innerHTML = 'Quiz finished';
                 break;
@@ -30,12 +43,7 @@ const createSocket = () => {
             default:
                 break;
         }
-    };
-
-    socket.onclose = (event) => {
-        console.log("Connection closed");
-        status_header.innerHTML = 'Kicked from server';
-    };
+    }
 };
 
 connect_button.onclick = (event) => {
@@ -49,21 +57,8 @@ register_button.onclick = (event) => {
     const msg = {
         action: 'REGISTER',
         code: 'kaas',
-        type: 'team',
-        teamName: 'test'
+        type: 'scoreboard'
     };
     socket.send(JSON.stringify(msg));
-    status_header.innerHTML = 'Registered at master';
-};
-
-confirm_button.onclick = (event) => {
-    event.preventDefault();
-    const msg = {
-        action: 'CONFIRM_ANSWER',
-        code: 'kaas',
-        teamName: 'test',
-        answer: 'test answer'
-    };
-    socket.send(JSON.stringify(msg));
-    status_header.innerHTML = 'Send answer';
+    status_header.innerHTML = 'Registered at server';
 };
