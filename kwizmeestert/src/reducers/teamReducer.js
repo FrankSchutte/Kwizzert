@@ -19,15 +19,10 @@ const teamReducer = (state = initialState, action) => {
                 teams: {$push: [{teamName: action.teamName}]}
             });
         case TOGGLE_TEAM:
-            let index;
-            state.teams.forEach(function (team, i) {
-                if(action.team === team) {
-                    index = i;
-                }
-            });
+            const teams = state.teams.filter((team) => team !== action.team);
 
             return update(state, {
-                teams: {[index]: {approved: {$set: !state.teams[index].approved}}}
+                teams: {$set: teams}
             });
         default:
             return state;

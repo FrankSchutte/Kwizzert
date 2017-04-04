@@ -4,6 +4,7 @@ export const PICK_TEAMS = 'pick teams';
 export const PICK_CATEGORIES = 'pick categories';
 export const PICK_QUESTION = 'pick question';
 export const QUESTION = 'question';
+export const ROUND_FINISHED = 'round finished';
 
 // ACTIONS
 export const REQUEST_CREATE_QUIZ = 'request create quiz';
@@ -22,3 +23,4 @@ export const TOGGLE_QUESTION_ACTIVITY = 'toggle question activity';
 export const TOGGLE_ANSWER = 'toggle answer';
 export const CONFIRM_ANSWER = 'confirm answer';
 export const CLOSE_QUESTION = 'stop question';
+export const CLOSE_ROUND = 'close round';

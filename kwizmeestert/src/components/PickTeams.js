@@ -3,8 +3,13 @@ import React, {Component, PropTypes} from 'react';
 import ListItem from './ListItem';
 
 class PickTeams extends Component {
+
+    onToggleTeam = (team) => {
+        this.props.onToggleTeam(this.props.code, team);
+    };
+
     onStartQuiz = () => {
-        this.props.onStartQuiz();
+        this.props.onStartQuiz(this.props.code, this.props.teams);
     };
 
     render() {
@@ -13,7 +18,7 @@ class PickTeams extends Component {
                 key={team.teamName}
                 checked={team.approved ? 'checked' : ''}
                 name={team.teamName}
-                onClickHandler={this.props.onToggleTeam.bind(this, team)}
+                onClickHandler={this.onToggleTeam.bind(this, team)}
             />)
         );
 
@@ -28,6 +33,7 @@ class PickTeams extends Component {
 }
 
 PickTeams.propTypes = {
+    code: PropTypes.string.isRequired,
     teams: PropTypes.array.isRequired,
     onToggleTeam: PropTypes.func.isRequired,
     onStartQuiz: PropTypes.func.isRequired
