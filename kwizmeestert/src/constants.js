@@ -7,20 +7,20 @@ export const QUESTION = 'question';
 export const ROUND_FINISHED = 'round finished';
 
 // ACTIONS
-export const REQUEST_CREATE_QUIZ = 'request create quiz';
+export const PENDING_CREATE_QUIZ = 'pending create quiz';
 export const RECEIVE_CREATE_QUIZ = 'receive create quiz';
 export const ADD_TEAM = 'add team';
 export const TOGGLE_TEAM = 'toggle team';
 export const START_QUIZ = 'start quiz';
-export const REQUEST_CATEGORIES = 'request categories';
+export const PENDING_CATEGORIES = 'pending categories';
 export const RECEIVE_CATEGORIES = 'receive categories';
 export const TOGGLE_CATEGORY = 'toggle category';
 export const START_ROUND = 'start round';
-export const REQUEST_QUESTIONS = 'request questions';
+export const PENDING_QUESTIONS = 'pending questions';
 export const RECEIVE_QUESTIONS = 'receive questions';
 export const CHOOSE_QUESTION = 'choose question';
 export const TOGGLE_QUESTION_ACTIVITY = 'toggle question activity';
 export const TOGGLE_ANSWER = 'toggle answer';
-export const CONFIRM_ANSWER = 'confirm answer';
-export const CLOSE_QUESTION = 'stop question';
-export const CLOSE_ROUND = 'close round';
+export const SEND_ANSWER = 'send answer';
+export const STOP_QUESTION = 'stop question';
+export const FINISH_ROUND = 'finish round';

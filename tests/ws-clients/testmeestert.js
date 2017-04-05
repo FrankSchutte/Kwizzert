@@ -22,7 +22,7 @@ const createSocket = () => {
                 status_header.innerHTML = 'Added team: ' + data.teamName;
                 break;
 
-            case 'CONFIRM_ANSWER':
+            case 'SEND_ANSWER':
                 status_header.innerHTML = 'Team: ' + data.teamName + '</br>Answer: ' + data.answer;
                 break;
 
@@ -99,7 +99,7 @@ start_question_button.onclick = (event) => {
 close_question_button.onclick = (event) => {
     event.preventDefault();
     const msg = {
-        action: 'CLOSE_QUESTION',
+        action: 'STOP_QUESTION',
         code: 'kaas'
     };
     socket.send(JSON.stringify(msg));

@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 
-import {REGISTER, RECEIVE_REGISTER, WAIT, KICK_TEAM, START_QUESTION, QUESTION, CLOSE_QUESTION} from '../constants';
+import {REGISTER, RECEIVE_REGISTER, WAIT, KICK_TEAM, START_QUESTION, QUESTION, STOP_QUESTION} from '../constants';
 
 const initialState = {
     currentPage: REGISTER
@@ -22,7 +22,7 @@ const routingReducer = (state = initialState, action) => {
             return update(state, {
                 currentPage: {$set: QUESTION}
             });
-        case CLOSE_QUESTION:
+        case STOP_QUESTION:
             return update(state, {
                 currentPage: {$set: WAIT}
             });

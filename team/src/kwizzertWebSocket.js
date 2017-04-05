@@ -24,8 +24,8 @@ const kwizzertWebSocket = {
                 case 'START_QUESTION':
                     store.dispatch(questionActionCreator.startQuestion());
                     break;
-                case 'CLOSE_QUESTION':
-                    store.dispatch(questionActionCreator.closeQuestion());
+                case 'STOP_QUESTION':
+                    store.dispatch(questionActionCreator.stopQuestion());
                     break;
                 default:
                     break;
@@ -49,7 +49,7 @@ const kwizzertWebSocket = {
     },
     confirmAnswer(code, teamName, answer) {
         const message = {
-            action: 'CONFIRM_ANSWER',
+            action: 'SEND_ANSWER',
             code: code,
             teamName: teamName,
             answer: answer

@@ -1,11 +1,17 @@
 import React, {Component, PropTypes} from 'react';
 
 class CreateQuiz extends Component {
+
+    onCreateQuiz(e) {
+        e.preventDefault();
+        this.props.onCreateQuiz();
+    }
+
     render() {
         return (
             <div>
                 <h2>Kwiz openen</h2>
-                <button onClick={this.props.onCreateQuiz}>Open</button>
+                <button onClick={this.onCreateQuiz.bind(this)}>Open</button>
             </div>
         );
     }
