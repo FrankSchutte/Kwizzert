@@ -3,22 +3,16 @@ import update from 'immutability-helper';
 import {SEND_ANSWER, TOGGLE_ANSWER, STOP_QUESTION} from '../constants';
 
 const initialState = {
-    answers: [
-        {
-            teamName: 'team1',
-
-        }
-    ]
+    answers: []
 };
 
 const answerReducer = (state = initialState, action) => {
     let index;
     switch (action.type) {
         case SEND_ANSWER:
-            //TODO fix this, cannot be used with multiple submissions
             index = -1;
             state.answers.forEach(function (answer, i) {
-                if (action.teamName === state.teamName) {
+                if (action.answer.teamName === answer.teamName) {
                     index = i;
                 }
             });
