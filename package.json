@@ -4,7 +4,8 @@
   "version": "0.1.0",
   "scripts": {
     "start": "node server.js",
-    "build": "cd kwizmeestert && npm run build && cd ../team && npm run build && cd ../scorebord && npm run build && cd .."
+    "build": "cd kwizmeestert && npm run build && cd ../team && npm run build && cd ../scorebord && npm run build && cd ..",
+    "install": "cd kwizmeestert && npm install"
   },
   "dependencies": {
     "body-parser": "^1.17.1",
