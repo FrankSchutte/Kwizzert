@@ -246,7 +246,7 @@ Een kwizmeestert kiest een vraag, de andere clients halen de vraag op.
 Elk team moet een vraag kunnen bevestigen, het antwoord moet aangepast kunnen worden.
 ```
 {
-    action: "CONFIRM_ANSWER",
+    action: "SEND_ANSWER",
     code: "...",
     teamName: "...",
     answer: "..."
@@ -262,11 +262,11 @@ Een kwizmeestert start een vraag.
 }
 ```
 
-##### Kwizmeestert sluit een vraag
-Een kwizmeestert sluit een vraag.
+##### Kwizmeestert stopt een vraag
+Een kwizmeestert stopt een vraag.
 ```
 {
-    action: "CLOSE_QUESTION",
+    action: "STOP_QUESTION",
     code: "..."
 }
 ```
@@ -275,7 +275,7 @@ Een kwizmeestert sluit een vraag.
 De kwizmeestert keurt vragen goed of fout.
 ```
 {
-    action: "RATE_ANSWER",
+    action: "SEND_RATING",
     code: "...",
     teamName: "...",
     answer: "...",
@@ -287,16 +287,16 @@ De kwizmeestert keurt vragen goed of fout.
 Een kwizmeestert sluit een ronde.
 ```
 {
-    action: "ROUND_FINISHED",
+    action: "FINISH_ROUND",
     code: "..."
 }
 ```
 
 ##### Kwiz afgelopen
-Een kwizmeestert beëindigd een kwiz.
+Een kwizmeestert sluit een kwiz.
 ```
 {
-    action: "QUIZ_FINISHED",
+    action: "FINISH_QUIZ",
     code: "..."
 }
 ```
