@@ -1,12 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
-import {CREATE_QUIZ, PICK_TEAMS, PICK_CATEGORIES, PICK_QUESTION, QUESTION} from '../constants';
+import {CREATE_QUIZ, PICK_TEAMS, PICK_CATEGORIES, PICK_QUESTION, QUESTION, ROUND_FINISHED} from '../constants';
 import CreateQuizContainer from "../containers/CreateQuizContainer";
 import PickTeamsContainer from "../containers/PickTeamsContainer";
 import PickCategoriesContainer from "../containers/PickCategoriesContainer";
 import PickQuestionContainer from '../containers/PickQuestionContainer';
 import QuestionContainer from '../containers/QuestionContainer';
+import RoundFinishedContainer from '../containers/RoundFinishedContainer';
 
 class Main extends Component {
     render() {
@@ -26,6 +27,9 @@ class Main extends Component {
                 break;
             case QUESTION:
                 page = <QuestionContainer/>;
+                break;
+            case ROUND_FINISHED:
+                page = <RoundFinishedContainer/>
                 break;
             default:
                 page = <CreateQuizContainer/>;

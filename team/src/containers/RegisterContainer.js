@@ -8,7 +8,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onRegister: (team, code) => dispatch(registerActionCreator.register(team, code))
+    onRegister: (code, teamName) => dispatch(registerActionCreator.register(code, teamName))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
