@@ -19,11 +19,11 @@ const createSocket = () => {
                 status_header.innerHTML = 'Question started';
                 break;
 
-            case 'CLOSE_QUESTION':
+            case 'STOP_QUESTION':
                 status_header.innerHTML = 'Question closed';
                 break;
 
-            case 'QUIZ_FINISHED':
+            case 'FINISH_QUIZ':
                 status_header.innerHTML = 'Quiz finished';
                 break;
 
@@ -59,7 +59,7 @@ register_button.onclick = (event) => {
 confirm_button.onclick = (event) => {
     event.preventDefault();
     const msg = {
-        action: 'CONFIRM_ANSWER',
+        action: 'SEND_ANSWER',
         code: 'kaas',
         teamName: 'test',
         answer: 'test answer'

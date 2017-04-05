@@ -22,7 +22,7 @@ const createSocket = () => {
                 status_header.innerHTML = 'Added team: ' + data.teamName;
                 break;
 
-            case 'CONFIRM_ANSWER':
+            case 'SEND_ANSWER':
                 status_header.innerHTML = 'Team: ' + data.teamName + '</br>Answer: ' + data.answer;
                 break;
 
@@ -99,7 +99,7 @@ start_question_button.onclick = (event) => {
 close_question_button.onclick = (event) => {
     event.preventDefault();
     const msg = {
-        action: 'CLOSE_QUESTION',
+        action: 'STOP_QUESTION',
         code: 'kaas'
     };
     socket.send(JSON.stringify(msg));
@@ -109,7 +109,7 @@ close_question_button.onclick = (event) => {
 rate_answer_button.onclick = (event) => {
     event.preventDefault();
     const msg = {
-        action: 'RATE_ANSWER',
+        action: 'SEND_RATING',
         code: 'kaas',
         teamName: 'test',
         answer: 'test answer',
@@ -122,7 +122,7 @@ rate_answer_button.onclick = (event) => {
 finish_round_button.onclick = (event) => {
     event.preventDefault();
     const msg = {
-        action: 'ROUND_FINISHED',
+        action: 'FINISH_ROUND',
         code: 'kaas'
     };
     socket.send(JSON.stringify(msg));
@@ -132,7 +132,7 @@ finish_round_button.onclick = (event) => {
 finish_quiz_button.onclick = (event) => {
     event.preventDefault();
     const msg = {
-        action: 'QUIZ_FINISHED',
+        action: 'FINISH_QUIZ',
         code: 'kaas'
     };
     socket.send(JSON.stringify(msg));
