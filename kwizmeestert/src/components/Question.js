@@ -1,15 +1,10 @@
 import React, {Component, PropTypes} from 'react';
-import RateAnswer from "./RateAnswer";
-import kwizzertWebSocket from '../kwizzertWebSocket';
+import RateAnswers from "./RateAnswers";
 
 class Question extends Component {
 
     onToggleActivity() {
         this.props.onToggleActivity(this.props.code, this.props.question.active);
-    }
-
-    onRateAnswer(answer, approved) {
-        kwizzertWebSocket.rateAnswer(this.props.code, answer, approved);
     }
 
     onStopQuestion() {
@@ -33,14 +28,7 @@ class Question extends Component {
                     <span>Antwoord: {this.props.question.answer}</span>
                 </div>
                 <hr/>
-                {this.props.answers.map((answer) => (
-                    <RateAnswer
-                        key={answer.teamName}
-                        teamName={answer.teamName}
-                        answer={answer.answer}
-                        onClickHandler={this.onRateAnswer.bind(this, answer)}
-                    />)
-                )}
+                <RateAnswers answers={this.props.answers}/>
                 <hr/>
                 <button onClick={this.onStopQuestion.bind(this)}>Volgende vraag</button>
             </div>

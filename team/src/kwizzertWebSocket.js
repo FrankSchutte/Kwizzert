@@ -47,7 +47,7 @@ const kwizzertWebSocket = {
 
         webSocket.send(JSON.stringify(message));
     },
-    confirmAnswer(code, teamName, answer) {
+    sendAnswer(code, teamName, answer) {
         const message = {
             action: 'SEND_ANSWER',
             code: code,

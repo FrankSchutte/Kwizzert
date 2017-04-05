@@ -24,7 +24,7 @@ const kwizzertWebSocket = {
                         answer: message.answer
                     };
 
-                    store.dispatch(questionActionCreator.confirmAnswer(answer));
+                    store.dispatch(questionActionCreator.sendAnswer(answer));
                     break;
                 default:
                     break;

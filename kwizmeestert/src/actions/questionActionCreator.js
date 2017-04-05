@@ -41,7 +41,7 @@ const questionActionCreator = {
         }
         return {type: TOGGLE_QUESTION_ACTIVITY};
     },
-    confirmAnswer(answer) {
+    sendAnswer(answer) {
         return {type: SEND_ANSWER, answer: answer}
     },
     stopQuestion(code, questionCount) {

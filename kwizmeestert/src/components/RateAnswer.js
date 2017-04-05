@@ -9,7 +9,6 @@ class RateAnswer extends Component {
     render() {
         return (
             <div>
-                <span>Correct | Wrong</span>
                 <span>
                     <input
                         type="radio"

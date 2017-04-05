@@ -19,8 +19,8 @@ const questionActionCreator = {
     startQuestion() {
         return {type: START_QUESTION};
     },
-    confirmAnswer(code, teamName, answer) {
-        kwizzertWebSocket.confirmAnswer(code, teamName, answer);
+    sendAnswer(code, teamName, answer) {
+        kwizzertWebSocket.sendAnswer(code, teamName, answer);
         return {type: SEND_ANSWER};
     },
     stopQuestion() {
