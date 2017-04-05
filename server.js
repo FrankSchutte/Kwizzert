@@ -28,10 +28,10 @@ app.route('/static/*')
         res.sendFile(path.join(__dirname, 'kwizmeestert/build', req.path));
     }
     else if (referer.includes('/team')) {
-        res.sendFIle(path.join(__dirname, 'team/build', req.path));
+        res.sendFile(path.join(__dirname, 'team/build', req.path));
     }
     else if (referer.includes('/scorebord')) {
-        res.sendFile(path.join(__dirname, 'scoreboard/build'));
+        res.sendFile(path.join(__dirname, 'scorebord/build'));
     }});
 
 app.route('/team')

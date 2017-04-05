@@ -1,4 +1,4 @@
-import {REQUEST_REGISTER, RECEIVE_REGISTER, KICK_TEAM} from '../constants';
+import {PENDING_REGISTER, RECEIVE_REGISTER, KICK_TEAM} from '../constants';
 
 import kwizzertAPI from '../kwizzertAPI'
 import kwizzertWebSocket from '../kwizzertWebSocket';
@@ -6,7 +6,7 @@ import kwizzertWebSocket from '../kwizzertWebSocket';
 const registerActionCreator = {
     register(teamName, code) {
         return (dispatch) => {
-            dispatch({type: REQUEST_REGISTER});
+            dispatch({type: PENDING_REGISTER});
             kwizzertAPI.validQuizCode(code, (err, res) => {
                 if (err) {
                     dispatch({type: RECEIVE_REGISTER, success: false});

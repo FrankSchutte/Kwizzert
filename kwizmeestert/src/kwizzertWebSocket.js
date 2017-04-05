@@ -18,13 +18,13 @@ const kwizzertWebSocket = {
                 case 'ADD_TEAM':
                     store.dispatch(teamActionCreator.addTeam(message.teamName));
                     break;
-                case 'CONFIRM_ANSWER':
+                case 'SEND_ANSWER':
                     const answer = {
                         teamName: message.teamName,
                         answer: message.answer
                     };
 
-                    store.dispatch(questionActionCreator.confirmAnswer(answer));
+                    store.dispatch(questionActionCreator.sendAnswer(answer));
                     break;
                 default:
                     break;
@@ -78,27 +78,28 @@ const kwizzertWebSocket = {
 
         webSocket.send(JSON.stringify(message));
     },
-    rateAnswer(code, answer) {
+    rateAnswer(code, answer, approved) {
         const message = {
-            action: 'RATE_ANSWER',
+            action: 'SEND_RATING',
             code: code,
             teamName: answer.teamName,
             answer: answer.answer,
-            approved: answer.approved
+            approved: approved
         };
 
         webSocket.send(JSON.stringify(message));
     },
-    closeQuestion(code) {
+    stopQuestion(code) {
         const message = {
+            action: 'STOP_QUESTION',
             code: code
         };
 
         webSocket.send(JSON.stringify(message));
     },
-    closeRound(code) {
+    roundFinished(code) {
         const message = {
-            action: 'CLOSE_ROUND',
+            action: 'ROUND_FINISHED',
             code: code
         };
 

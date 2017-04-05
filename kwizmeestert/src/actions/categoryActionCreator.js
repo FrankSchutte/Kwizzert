@@ -1,10 +1,10 @@
-import {REQUEST_CATEGORIES, RECEIVE_CATEGORIES, TOGGLE_CATEGORY} from '../constants';
+import {PENDING_CATEGORIES, RECEIVE_CATEGORIES, TOGGLE_CATEGORY} from '../constants';
 import KwizzertAPI from '../kwizzertAPI';
 
 const categoryActionCreator = {
     fetchCategories() {
         return (dispatch) => {
-            dispatch({type: REQUEST_CATEGORIES});
+            dispatch({type: PENDING_CATEGORIES});
             KwizzertAPI.fetchCategories((err, res) => {
                 if (err) {
                     dispatch({type: RECEIVE_CATEGORIES, success: false});
