@@ -27,29 +27,29 @@ app.route('/static/*')
     if(referer) {
         if (referer.includes('/kwizmeestert')) {
 
-            res.sendFile(path.join(__dirname, 'Kwizzert/kwizmeestert/build', req.path));
+            res.sendFile(path.join(__dirname, 'kwizmeestert/build', req.path));
         }
         else if (referer.includes('/team')) {
-            res.sendFile(path.join(__dirname, 'Kwizzert/team/build', req.path));
+            res.sendFile(path.join(__dirname, 'team/build', req.path));
         }
         else if (referer.includes('/scorebord')) {
-            res.sendFile(path.join(__dirname, 'Kwizzert/scorebord/build'));
+            res.sendFile(path.join(__dirname, 'scorebord/build'));
         }}}
     );
 
 app.route('/team')
     .get((req, res) => {
-        res.sendFile(path.join(__dirname, "Kwizzert/team/build/index.html"));
+        res.sendFile(path.join(__dirname, "team/build/index.html"));
     });
 
 app.route('/scorebord')
     .get((req, res) => {
-        res.sendFile(path.join(__dirname, "Kwizzert/scorebord/build/index.html"));
+        res.sendFile(path.join(__dirname, "scorebord/build/index.html"));
     });
 
 app.route('/kwizmeestert')
     .get((req, res) => {
-        res.sendFile(path.join(__dirname, "Kwizzert/kwizmeestert/build/index.html"));
+        res.sendFile(path.join(__dirname, "kwizmeestert/build/index.html"));
     });
 
 app.route('/')
