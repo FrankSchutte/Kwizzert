@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
-import ListItem from "./ListItem";
+import RateAnswer from "./RateAnswer";
+import kwizzertWebSocket from '../kwizzertWebSocket';
 
 class Question extends Component {
 
@@ -7,8 +8,8 @@ class Question extends Component {
         this.props.onToggleActivity(this.props.code, this.props.question.active);
     }
 
-    onToggleAnswer(answer) {
-        this.props.onToggleAnswer(this.props.code, answer);
+    onRateAnswer(answer, approved) {
+        kwizzertWebSocket.rateAnswer(this.props.code, answer, approved);
     }
 
     onStopQuestion() {
@@ -33,11 +34,11 @@ class Question extends Component {
                 </div>
                 <hr/>
                 {this.props.answers.map((answer) => (
-                    <ListItem
+                    <RateAnswer
                         key={answer.teamName}
-                        checked={answer.approved ? 'checked' : ''}
-                        name={answer.teamName + ' ' + answer.answer}
-                        onClickHandler={this.onToggleAnswer.bind(this, answer)}
+                        teamName={answer.teamName}
+                        answer={answer.answer}
+                        onClickHandler={this.onRateAnswer.bind(this, answer)}
                     />)
                 )}
                 <hr/>
@@ -53,7 +54,6 @@ Question.propTypes = {
     question: PropTypes.object.isRequired,
     answers: PropTypes.array.isRequired,
     onToggleActivity: PropTypes.func.isRequired,
-    onToggleAnswer: PropTypes.func.isRequired,
     onStopQuestion: PropTypes.func.isRequired
 };
 

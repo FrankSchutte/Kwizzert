@@ -78,13 +78,13 @@ const kwizzertWebSocket = {
 
         webSocket.send(JSON.stringify(message));
     },
-    rateAnswer(code, answer) {
+    rateAnswer(code, answer, approved) {
         const message = {
             action: 'SEND_RATING',
             code: code,
             teamName: answer.teamName,
             answer: answer.answer,
-            approved: answer.approved
+            approved: approved
         };
 
         webSocket.send(JSON.stringify(message));

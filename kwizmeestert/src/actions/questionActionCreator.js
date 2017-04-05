@@ -4,7 +4,6 @@ import {
     CHOOSE_QUESTION,
     TOGGLE_QUESTION_ACTIVITY,
     SEND_ANSWER,
-    TOGGLE_ANSWER,
     STOP_QUESTION,
     ROUND_FINISHED
 } from '../constants';
@@ -45,13 +44,7 @@ const questionActionCreator = {
     confirmAnswer(answer) {
         return {type: SEND_ANSWER, answer: answer}
     },
-    toggleAnswer(code, answer) {
-        //TODO the reducer need to run first, then the webSocket must send a signal, should i use thunk here?
-        kwizzertWebSocket.rateAnswer(code, answer);
-        return {type: TOGGLE_ANSWER, teamName: answer.teamName};
-    },
     stopQuestion(code, questionCount) {
-        console.log('stopping question');
         questionCount++;
         kwizzertWebSocket.stopQuestion(code);
 

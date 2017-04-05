@@ -3,7 +3,12 @@ import update from 'immutability-helper';
 import {SEND_ANSWER, TOGGLE_ANSWER, STOP_QUESTION} from '../constants';
 
 const initialState = {
-    answers: []
+    answers: [
+        {
+            teamName: 'team1',
+
+        }
+    ]
 };
 
 const answerReducer = (state = initialState, action) => {
