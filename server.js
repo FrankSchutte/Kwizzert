@@ -26,6 +26,7 @@ app.route('/static/*')
     const referer = req.get('Referer');
     if(referer) {
         if (referer.includes('/kwizmeestert')) {
+
             res.sendFile(path.join(__dirname, 'Kwizzert/kwizmeestert/build', req.path));
         }
         else if (referer.includes('/team')) {
@@ -68,3 +69,23 @@ app.use(express.static(path.join(__dirname, 'tests')));
 app.listen(port, () => {
     console.log("Server started and listening to ::" + port);
 });
+
+var filesystem = require("fs");
+var _getAllFilesFromFolder = function(dir) {
+
+    var results = [];
+
+    filesystem.readdirSync(dir).forEach(function(file) {
+
+        file = dir+'/'+file;
+        var stat = filesystem.statSync(file);
+
+        if (stat && stat.isDirectory()) {
+            results = results.concat(_getAllFilesFromFolder(file))
+        } else console.log(file);
+
+    });
+
+};
+
+_getAllFilesFromFolder(__dirname + '/kwizmeestert');
