@@ -23,7 +23,7 @@ const createSocket = () => {
                 status_header.innerHTML = 'Question closed';
                 break;
 
-            case 'QUIZ_FINISHED':
+            case 'FINISH_QUIZ':
                 status_header.innerHTML = 'Quiz finished';
                 break;
 

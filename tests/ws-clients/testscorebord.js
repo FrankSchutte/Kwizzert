@@ -26,17 +26,17 @@ const createSocket = () => {
                 status_header.innerHTML = 'Question closed';
                 break;
 
-            case 'RATE_ANSWER':
+            case 'SEND_RATING':
                 status_header.innerHTML = 'Team: ' + data.teamName +
                         '<br/>Answer: ' + data.answer +
                         '<br/>Approved: ' + data.approved;
                 break;
 
-            case 'ROUND_FINISHED':
+            case 'FINISH_ROUND':
                 status_header.innerHTML = 'Round finished';
                 break;
 
-            case 'QUIZ_FINISHED':
+            case 'FINISH_QUIZ':
                 status_header.innerHTML = 'Quiz finished';
                 break;
 
