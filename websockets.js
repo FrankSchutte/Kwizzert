@@ -173,7 +173,7 @@ const sendAnswerToMaster = (wsServer, team, answer, quizcode) => {
         const clientInfo = socketMap.get(client);
         if (clientInfo && clientInfo.code === quizcode && clientInfo.type === types.quizmaster) {
             const message = {
-                action: 'CONFIRM_ANSWER',
+                action: 'SEND_ANSWER',
                 teamName: team,
                 answer: answer
             };
