@@ -9,13 +9,24 @@ api.use(bodyParser.json());
 
 // Connect to database
 let db;
-mongo.connect('mongodb://' +
+
+if(process.env.MONGODB_USERNAME && process.env.MONGODB_PASSWORD) {
+    mongo.connect('mongodb://' +
+        'ds119220.mlab.com:19220/kwizzert' + ':' +
+        process.env.MONGODB_USERNAME + '@' +
+        process.env.MONGODB_PASSWORD, (err, database) => {
+        if (err) throw err;
+        db = database;
+    });
+} else {
+    mongo.connect('mongodb://' +
         secrets.mongodb.username + ':' +
         secrets.mongodb.password + '@' +
         secrets.mongodb.url, (err, database) => {
-    if (err) throw err;
-    db = database;
-});
+        if (err) throw err;
+        db = database;
+    });
+}
 
 // LOGIN
 api.post('/login', (req, res) => {
