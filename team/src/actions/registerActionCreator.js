@@ -1,4 +1,4 @@
-import {REQUEST_REGISTER, RECEIVE_REGISTER} from '../constants';
+import {REQUEST_REGISTER, RECEIVE_REGISTER, KICK_TEAM} from '../constants';
 
 import kwizzertAPI from '../kwizzertAPI'
 import kwizzertWebSocket from '../kwizzertWebSocket';
@@ -11,22 +11,16 @@ const registerActionCreator = {
                 if (err) {
                     dispatch({type: RECEIVE_REGISTER, success: false});
                 } else {
-                    const status = JSON.parse(res.text).status;
-
-                    if (status === 'open') {
-                        const request = {
-                            action: 'REGISTER',
-                            code: code,
-                            type: 'team',
-                            teamName: teamName
-                        };
-
-                        kwizzertWebSocket.send(JSON.stringify(request));
-                        dispatch({type: RECEIVE_REGISTER, success: true});
+                    if (res.status === 'open') {
+                        kwizzertWebSocket.register(code, teamName);
+                        dispatch({type: RECEIVE_REGISTER, success: true, code: code, teamName: teamName});
                     }
                 }
             });
         }
+    },
+    kick() {
+        return {type: KICK_TEAM};
     }
 };
 

@@ -5,12 +5,13 @@ import routingActionCreator from '../actions/routingActionCreator';
 import teamActionCreator from '../actions/teamActionCreator';
 
 const mapStateToProps = (state) => ({
+    code: state.routingReducer.code,
     teams: state.teamReducer.teams
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onToggleTeam: (team) => dispatch(teamActionCreator.toggleTeamApproval(team)),
-    onStartQuiz: () => dispatch(routingActionCreator.startQuiz())
+    onToggleTeam: (code, team) => dispatch(teamActionCreator.toggleTeamApproval(code, team)),
+    onStartQuiz: (code, teams) => dispatch(routingActionCreator.startQuiz(code, teams))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PickTeams);

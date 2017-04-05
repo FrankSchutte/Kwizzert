@@ -7,8 +7,15 @@ let kwizzertAPI = {
         request
             .get(url + '/api/v1/kwiz/' + code)
             .end(function (err, res) {
-                callback(err, res);
+                callback(err, JSON.parse(res.text));
             });
+    },
+    fetchQuestion(id, callback) {
+        request
+            .get(url + '/api/v1/questions/' + id)
+            .end(function (err, res) {
+                callback(err, JSON.parse(res.text));
+            })
     }
 };
 

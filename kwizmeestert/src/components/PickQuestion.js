@@ -7,13 +7,17 @@ class PickQuestion extends Component {
         this.props.fetchQuestions();
     }
 
+    onQuestionSelect(question) {
+        this.props.onQuestionSelect(this.props.code, question);
+    }
+
     render() {
         const questions = this.props.questions.map((question) => (
             <ListItem
                 key={question._id}
                 checked={question.approved ? 'checked' : ''}
                 name={question.question}
-                onClickHandler={this.props.onQuestionSelect.bind(this, question)}
+                onClickHandler={this.onQuestionSelect.bind(this, question)}
             />
         ));
 
@@ -28,7 +32,7 @@ class PickQuestion extends Component {
 
 PickQuestion.propTypes = {
     fetchQuestions: PropTypes.func.isRequired,
-    categories: PropTypes.array.isRequired,
+    code: PropTypes.string.isRequired,
     questions: PropTypes.array.isRequired,
     onQuestionSelect: PropTypes.func.isRequired
 };
