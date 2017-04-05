@@ -11,9 +11,9 @@ let db;
 
 if(process.env.MONGODB_USERNAME && process.env.MONGODB_PASSWORD) {
     mongo.connect('mongodb://' +
-        'ds119220.mlab.com:19220/kwizzert' + ':' +
-        process.env.MONGODB_USERNAME + '@' +
-        process.env.MONGODB_PASSWORD, (err, database) => {
+        process.env.MONGODB_USERNAME + ':' +
+        process.env.MONGODB_PASSWORD + '@' +
+        'ds119220.mlab.com:19220/kwizzert', (err, database) => {
         if (err) throw err;
         db = database;
     });
