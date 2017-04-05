@@ -3,7 +3,6 @@ const express = require('express');
 const mongo = require('mongodb');
 const ObjectID = require('mongodb').ObjectID;
 const bodyParser = require('body-parser');
-const secrets = require('./secrets');
 const api = express.Router();
 api.use(bodyParser.json());
 
@@ -19,6 +18,7 @@ if(process.env.MONGODB_USERNAME && process.env.MONGODB_PASSWORD) {
         db = database;
     });
 } else {
+    const secrets = require('./secrets');
     mongo.connect('mongodb://' +
         secrets.mongodb.username + ':' +
         secrets.mongodb.password + '@' +
