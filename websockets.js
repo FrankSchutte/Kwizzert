@@ -51,7 +51,7 @@ const configure = (wsServer) => {
                     break;
 
                 case 'SEND_ANSWER':
-                    sendAnswerToMaster(wsServer, messageObject.teamName, messageObject.answer, messageObject.code);
+                    sendAnswerToMasterAndScoreboard(wsServer, messageObject.teamName, messageObject.answer, messageObject.code);
                     break;
 
                 case 'START_QUESTION':
@@ -168,10 +168,10 @@ const sendQuestionRatingToScoreboard = (wsServer, team, answer, approved, quizco
     });
 };
 
-const sendAnswerToMaster = (wsServer, team, answer, quizcode) => {
+const sendAnswerToMasterAndScoreboard = (wsServer, team, answer, quizcode) => {
     wsServer.clients.forEach((client) => {
         const clientInfo = socketMap.get(client);
-        if (clientInfo && clientInfo.code === quizcode && clientInfo.type === types.quizmaster) {
+        if (clientInfo && clientInfo.code === quizcode && clientInfo.type !== types.team) {
             const message = {
                 action: 'SEND_ANSWER',
                 teamName: team,
