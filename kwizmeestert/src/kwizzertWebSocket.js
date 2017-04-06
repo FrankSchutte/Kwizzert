@@ -1,12 +1,7 @@
 import teamActionCreator from './actions/teamActionCreator';
 import questionActionCreator from './actions/questionActionCreator';
 
-let url;
-if(process.env.MONGODB_USERNAME && process.env.MONGODB_PASSWORD) {
-    url = '/ws';
-} else {
-    url = 'ws://localhost:3001/ws';
-}
+const url = process.env.WEBSOCKET_URL || '/ws';
 
 let webSocket;
 

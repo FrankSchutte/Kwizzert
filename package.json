@@ -17,9 +17,9 @@
   },
   "cacheDirectories": [
     "node_modules",
-    "kwizmeestert",
-    "team",
-    "scorebord"
+    "kwizmeestert/node_modules",
+    "team/node_modules",
+    "scorebord/node_modules"
   ],
   "engines": {
     "node": "7.8.0"
