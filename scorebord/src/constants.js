@@ -17,3 +17,5 @@ export const SHOW_RESULTS = 'show results';
 export const RESET_QUESTION = 'reset question';
 export const ADD_TEAMS = 'add teams';
 export const ADD_SCORE = 'add score';
+export const COUNT_QUESTIONS = "count questions";
+export const CALCULATE_SCORE = 'calculate score';
