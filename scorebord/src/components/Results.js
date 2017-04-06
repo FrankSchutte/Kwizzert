@@ -1,11 +1,33 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 
 class Results extends Component {
     render() {
+        const winner = `${this.props.teams[0].teamName} heeft gewonnen met ${this.props.teams[0].totalScore} punten!`;
+
+        let secondplace;
+        if (this.props.teams.length > 1)
+            secondplace = `2e plaats: ${this.props.teams[1].teamName} met ${this.props.teams[1].totalScore} punten!`;
+        else secondplace = '';
+
+        let thirdplace;
+        if (this.props.teams.length > 2)
+            thirdplace = `3e plaats: ${this.props.teams[2].teamName} met ${this.props.teams[2].totalScore} punten!`;
+        else thirdplace = '';
+
         return (
-            <div><h1>TEAM 2 HEEFT GEWONNEN!</h1></div>
+            <div>
+                <h1>{winner}</h1>
+                <br/>
+                <h2>{secondplace}</h2>
+                <br/>
+                <h3>{thirdplace}</h3>
+            </div>
         )
     }
 }
+
+Results.propTypes = {
+    teams: PropTypes.array.isRequired
+};
 
 export default Results;
