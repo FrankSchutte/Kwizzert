@@ -3,8 +3,8 @@
   "author": "Albert Veldman",
   "version": "0.1.0",
   "scripts": {
-    "start": "node server.js",
-    "heroku-postbuild": "cd kwizmeestert && npm run build && cd ../team && npm run build && cd ../scorebord && npm run build"
+    "start": "node server",
+    "heroku-postbuild": "cd kwizmeestert/ && npm install && npm run build && cd ../team/ && npm install && npm run build && cd ../scorebord/ && npm install && npm run build"
   },
   "dependencies": {
     "body-parser": "^1.17.1",
