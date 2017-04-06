@@ -80,7 +80,7 @@ pick_button.onclick = (event) => {
     const msg = {
         action: 'PICK_QUESTION',
         code: 'kaas',
-        questionId: 1
+        questionId: '58db7ae6dde3ee91908f367c'
     };
     socket.send(JSON.stringify(msg));
     status_header.innerHTML = 'Picked question 1';
