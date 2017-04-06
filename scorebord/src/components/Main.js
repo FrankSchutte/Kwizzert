@@ -1,24 +1,28 @@
 import React, {Component, PropTypes} from 'react';
-import {SHOW_CODE, QUIZ, RESULTS} from '../constants';
-import ShowCode from '../components/ShowCode';
+import {REGISTER, SHOW_CODE, QUIZ, RESULTS} from '../constants';
+import RegisterContainer from '../containers/RegisterContainer';
+import ShowCodeContainer from '../containers/ShowCodeContainer';
 import QuizContainer from '../containers/QuizContainer';
-import Results from '../components/Results';
+import ResultsContainer from '../containers/ResultsContainer';
 
 class Main extends Component {
     render() {
         let page;
         switch (this.props.currentPage) {
+            case REGISTER:
+                page = <RegisterContainer/>;
+                break;
             case SHOW_CODE:
-                page = <ShowCode/>;
+                page = <ShowCodeContainer/>;
                 break;
             case QUIZ:
                 page = <QuizContainer/>;
                 break;
             case RESULTS:
-                page = <Results/>;
+                page = <ResultsContainer/>;
                 break;
             default:
-                page = 'FAILED';
+                page = <RegisterContainer/>;
                 break;
         }
 

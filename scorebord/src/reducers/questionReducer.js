@@ -13,19 +13,24 @@ const questionReducer = (state = initialState, action) => {
             return update(state, {
                 question: {$set: action.question}
             });
+
         case START_QUESTION:
             return update(state, {
                 status: {$set: 'visible'}
             });
+
         case STOP_QUESTION:
             return update(state, {
                 status: {$set: 'answer'}
             });
+
         case RESET_QUESTION:
             return update(state, {
                 question: {$set: null},
-                status: {$set: 'invisible'}
+                status: {$set: 'invisible'},
+                results: {$set: []}
             });
+
         case SHOW_RESULTS:
             return update(state, {
                 results: {$push: [{
@@ -35,6 +40,7 @@ const questionReducer = (state = initialState, action) => {
                     ]
                 }
             });
+
         default:
             return state;
     }
