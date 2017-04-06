@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 
-import {RECEIVE_CREATE_QUIZ, CREATE_QUIZ, PICK_TEAMS, START_QUIZ, PICK_CATEGORIES, START_ROUND, PICK_QUESTION, CHOOSE_QUESTION, QUESTION, CLOSE_QUESTION, CLOSE_ROUND, ROUND_FINISHED} from '../constants';
+import {RECEIVE_CREATE_QUIZ, CREATE_QUIZ, PICK_TEAMS, START_QUIZ, PICK_CATEGORIES, START_ROUND, PICK_QUESTION, CHOOSE_QUESTION, QUESTION, STOP_QUESTION, FINISH_ROUND, ROUND_FINISHED} from '../constants';
 
 const initialState = {
     currentPage: CREATE_QUIZ
@@ -28,11 +28,11 @@ const routingReducer = (state = initialState, action) => {
             return update(state, {
                 currentPage: {$set: QUESTION}
             });
-        case CLOSE_QUESTION:
+        case STOP_QUESTION:
             return update(state, {
                 currentPage: {$set: PICK_QUESTION}
             });
-        case CLOSE_ROUND:
+        case FINISH_ROUND:
             return update(state, {
                 currentPage: {$set: ROUND_FINISHED}
             });

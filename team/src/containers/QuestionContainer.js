@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    confirmAnswer: (code, teamName, answer) => dispatch(questionActionCreator.confirmAnswer(code, teamName, answer))
+    sendAnswer: (code, teamName, answer) => dispatch(questionActionCreator.sendAnswer(code, teamName, answer))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Question);

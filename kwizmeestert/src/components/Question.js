@@ -1,19 +1,14 @@
 import React, {Component, PropTypes} from 'react';
-import ListItem from "./ListItem";
+import RateAnswers from "./RateAnswers";
 
 class Question extends Component {
 
     onToggleActivity() {
-        //TODO discuss to change TOGGLE_QUESTION with active: true | false? problem arise because we need 2 kinds of close questions
-        this.props.onToggleActivity(this.props.code);
+        this.props.onToggleActivity(this.props.code, this.props.question.active);
     }
 
-    onToggleAnswer(answer) {
-        this.props.onToggleAnswer(this.props.code, answer);
-    }
-
-    onCloseQuestion() {
-        this.props.onCloseQuestion(this.props.code, this.props.questionCount);
+    onStopQuestion() {
+        this.props.onStopQuestion(this.props.code, this.props.questionCount);
     }
 
     render() {
@@ -33,16 +28,9 @@ class Question extends Component {
                     <span>Antwoord: {this.props.question.answer}</span>
                 </div>
                 <hr/>
-                {this.props.answers.map((answer) => (
-                    <ListItem
-                        key={answer.teamName}
-                        checked={answer.approved ? 'checked' : ''}
-                        name={answer.teamName + ' ' + answer.answer}
-                        onClickHandler={this.onToggleAnswer.bind(this, answer)}
-                    />)
-                )}
+                <RateAnswers answers={this.props.answers}/>
                 <hr/>
-                <button onClick={this.onCloseQuestion.bind(this)}>Volgende vraag</button>
+                <button onClick={this.onStopQuestion.bind(this)}>Volgende vraag</button>
             </div>
         )
     }
@@ -54,8 +42,7 @@ Question.propTypes = {
     question: PropTypes.object.isRequired,
     answers: PropTypes.array.isRequired,
     onToggleActivity: PropTypes.func.isRequired,
-    onToggleAnswer: PropTypes.func.isRequired,
-    onCloseQuestion: PropTypes.func.isRequired
+    onStopQuestion: PropTypes.func.isRequired
 };
 
 export default Question;

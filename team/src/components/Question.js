@@ -2,10 +2,10 @@ import React, {Component, PropTypes} from 'react';
 
 class Question extends Component {
 
-    onConfirmAnswer(e) {
+    onSendAnswer(e) {
         e.preventDefault();
 
-        this.props.confirmAnswer(
+        this.props.sendAnswer(
             this.props.code,
             this.props.teamName,
             e.target.answer.value
@@ -20,7 +20,7 @@ class Question extends Component {
                     Vraag: {this.props.question.question}
                 </div>
                 <div>
-                    <form onSubmit={this.onConfirmAnswer.bind(this)}>
+                    <form onSubmit={this.onSendAnswer.bind(this)}>
                         Antwoord:
                         <input type="text" id="answer"/>
                         <input type="submit" value="Bevestig"/>
@@ -35,7 +35,7 @@ Question.propTypes = {
     code: PropTypes.string.isRequired,
     teamName: PropTypes.string.isRequired,
     question: PropTypes.object.isRequired,
-    confirmAnswer: PropTypes.func.isRequired
+    sendAnswer: PropTypes.func.isRequired
 };
 
 export default Question;
