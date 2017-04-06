@@ -1,6 +1,11 @@
 import request from 'superagent';
 
-const url = 'http://localhost:3000';
+let url;
+if(process.env.MONGODB_USERNAME && process.env.MONGODB_PASSWORD) {
+    url = '';
+} else {
+    url = 'http://localhost:3000';
+}
 
 let kwizzertAPI = {
     createQuiz(callback) {

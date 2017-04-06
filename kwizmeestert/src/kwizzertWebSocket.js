@@ -1,11 +1,18 @@
 import teamActionCreator from './actions/teamActionCreator';
 import questionActionCreator from './actions/questionActionCreator';
 
+let url;
+if(process.env.MONGODB_USERNAME && process.env.MONGODB_PASSWORD) {
+    url = '/ws';
+} else {
+    url = 'ws://localhost:3001/ws';
+}
+
 let webSocket;
 
 const kwizzertWebSocket = {
     init (store) {
-        webSocket = new WebSocket('ws://localhost:3001/ws');
+        webSocket = new WebSocket(url);
 
         webSocket.onopen = () => {
             console.log('connected to server');
