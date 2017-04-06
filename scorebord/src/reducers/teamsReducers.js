@@ -1,20 +1,8 @@
 import update from 'immutability-helper';
-import {ADD_TEAMS} from '../constants';
+import {ADD_TEAMS, ADD_SCORE} from '../constants';
 
 const initialState = {
-    teams: [{
-        teamName: 'team1',
-        roundScore: 7,
-        totalScore: 1
-    }, {
-        teamName: 'team2',
-        roundScore: 11,
-        totalScore: 4
-    }, {
-        teamName: 'team3',
-        roundScore: 2,
-        totalScore: 3
-    }]
+    teams: []
 };
 
 const teamsReducers = (state = initialState, action) => {
@@ -26,6 +14,23 @@ const teamsReducers = (state = initialState, action) => {
             });
             return update(state, {
                 teams: {$push: action.teams}
+            });
+        case ADD_SCORE:
+            let index;
+            console.log(action);
+            state.teams.forEach((team, i) => {
+                if (team.teamName === action.teamName) {
+                    console.log('INDEX GEVONDEN');
+                    index = i;
+                }
+            });
+            if (!index && index !== 0) {
+                console.log('GEEN INDEX GEVONDEN');
+                return state;
+            }
+
+            return update(state, {
+                teams: {[index]: {$set: state.teams[index].roundScore++}}
             });
         default:
             return state;
