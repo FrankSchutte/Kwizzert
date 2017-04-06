@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 
 import reducers from './reducers';
 import MainContainer from './containers/MainContainer';
+import kwizzertWebSocket from './kwizzertWebSocket';
 import './index.css';
 
 let store;
@@ -26,6 +27,8 @@ if (window.__REDUX_DEVTOOLS_EXTENSION__) {
         middleware
     );
 }
+
+kwizzertWebSocket.init(store);
 
 ReactDOM.render(
     <Provider store={store}>
