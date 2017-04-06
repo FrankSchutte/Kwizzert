@@ -1,26 +1,27 @@
 import React, {Component, PropTypes} from 'react';
+import CenterText from './styling/CenterText';
+import Box from './styling/Box';
 
 class Quiz extends Component {
     render() {
         const quizInfo =
-            <div>
+            <CenterText>
                 <p>Vraag: {this.props.questionNum} Ronde: {this.props.roundNum}</p>
-            </div>;
+            </CenterText>;
 
         const teamInfo = this.props.teams.map((team) =>
-            <div key={team.teamName}>
-                <ul>
-                    <li>Team naam: {team.teamName}</li>
-                    <li>Punten in deze ronde: {team.roundScore}</li>
-                    <li>Totale rondepunten: {team.totalScore}</li>
-                </ul>
-            </div>
+            <Box key={team.teamName}>
+                <p>Team naam: {team.teamName}<br/>
+                   Punten in deze ronde: {team.roundScore}<br/>
+                   Totale rondepunten: {team.totalScore}<br/>
+                </p>
+            </Box>
         );
 
         let question;
         if (this.props.question && this.props.status !== 'invisible') {
             question =
-                <div>
+                <CenterText>
                     <div>
                         {this.props.question.category}
                     </div>
@@ -33,20 +34,19 @@ class Quiz extends Component {
                             </div>
                             : ''
                         }
-                </div>
+                </CenterText>
         } else question = '';
 
         let results;
         if (this.props.results && this.props.status !== 'invisible') {
             results = this.props.results.map((result) =>
-                <div key={result.teamName + '1'}>
-                    <br/>
+                <Box key={result.teamName + '1'}>
                     {result.teamName}
                     <br/>
                     {result.answer}
                     <br/>
                     {result.approved ? 'Goed' : 'Fout'}
-                </div>
+                </Box>
             );
         } else results = '';
 
