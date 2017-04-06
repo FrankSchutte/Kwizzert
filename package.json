@@ -4,7 +4,6 @@
   "version": "0.1.0",
   "scripts": {
     "start": "node server",
-    "build": "echo build!!!",
     "heroku-postbuild": "cd kwizmeestert/ && npm install && npm run build && cd ../team/ && npm install && npm run build && cd ../scorebord/ && npm install && npm run build"
   },
   "dependencies": {
