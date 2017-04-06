@@ -23,15 +23,13 @@ class Quiz extends Component {
             question =
                 <CenterText>
                     <div>
-                        {this.props.question.category}
+                        <p>{this.props.question.category}</p>
                     </div>
                     <div>
-                        {this.props.question.question}
+                        <p>{this.props.question.question}</p>
                     </div>
                         {this.props.status === 'answer' ?
-                            <div>
-                                {this.props.question.answer}
-                            </div>
+                            <p>{this.props.question.answer}</p>
                             : ''
                         }
                 </CenterText>
@@ -41,14 +39,22 @@ class Quiz extends Component {
         if (this.props.results && this.props.status !== 'invisible') {
             results = this.props.results.map((result) =>
                 <Box key={result.teamName + '1'}>
-                    {result.teamName}
-                    <br/>
-                    {result.answer}
-                    <br/>
-                    {result.approved ? 'Goed' : 'Fout'}
+                    <p>Team: {result.teamName}</p>
+                    {this.props.status === 'answer' ?
+                        <div>
+                            <p>Antwoord: {result.answer}</p>
+                            {result.approved !== null ?
+                                <p>{result.approved ? 'Goed' : 'Fout'}</p>
+                                : ''
+                            }
+                        </div>
+                        : ''
+                    }
                 </Box>
-            );
+            )
         } else results = '';
+
+
 
         return (
             <div>
