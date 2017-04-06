@@ -28,8 +28,11 @@ const kwizzertWebSocket = {
                 case 'STOP_QUESTION':
                     store.dispatch(questionActionCreator.stopQuestion());
                     break;
+                case 'SEND_ANSWER':
+                    store.dispatch(questionActionCreator.addAnswers(message));
+                    break;
                 case 'SEND_RATING':
-                    store.dispatch(questionActionCreator.showResults(message));
+                    store.dispatch(questionActionCreator.addResults(message));
                     if (message.approved) {
                         store.dispatch(teamsActionCreator.addScore(message.teamName));
                     }

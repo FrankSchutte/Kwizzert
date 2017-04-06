@@ -1,4 +1,4 @@
-import {PENDING_QUESTION, RECEIVE_QUESTION, START_QUESTION, STOP_QUESTION, RESET_QUESTION, SHOW_RESULTS, COUNT_QUESTIONS, CALCULATE_SCORE} from '../constants';
+import {PENDING_QUESTION, RECEIVE_QUESTION, START_QUESTION, STOP_QUESTION, RESET_QUESTION, ADD_RESULTS, COUNT_QUESTIONS, CALCULATE_SCORE, SHOW_ANSWERS} from '../constants';
 import kwizzertAPI from '../kwizzertAPI';
 
 const questionActionCreator = {
@@ -23,8 +23,11 @@ const questionActionCreator = {
     stopQuestion() {
         return({type: STOP_QUESTION})
     },
-    showResults(message) {
-        return({type: SHOW_RESULTS, message})
+    addAnswers(message) {
+        return({type: SHOW_ANSWERS, message})
+    },
+    addResults(message) {
+        return({type: ADD_RESULTS, message})
     }
 };
 

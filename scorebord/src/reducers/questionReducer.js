@@ -1,5 +1,5 @@
 import update from 'immutability-helper';
-import {RECEIVE_QUESTION, START_QUESTION, STOP_QUESTION, RESET_QUESTION, SHOW_RESULTS} from '../constants';
+import {RECEIVE_QUESTION, START_QUESTION, STOP_QUESTION, RESET_QUESTION, ADD_RESULTS, SHOW_ANSWERS} from '../constants';
 
 const initialState = {
     question: null,
@@ -31,16 +31,29 @@ const questionReducer = (state = initialState, action) => {
                 results: {$set: []}
             });
 
-        case SHOW_RESULTS:
+        case SHOW_ANSWERS:
             return update(state, {
                 results: {$push: [{
                     teamName: action.message.teamName,
                     answer: action.message.answer,
-                    approved: action.message.approved}
-                    ]
+                    approved: null
+                }]}
+            });
+
+        case ADD_RESULTS:
+            let index;
+            state.results.forEach((result, i) => {
+                if (result.teamName === action.message.teamName) {
+                    index = i;
                 }
             });
 
+            if (!index && index !== 0)
+                return state;
+
+            return update(state, {
+                results: {[index]: {approved: {$set: action.message.approved}}}
+            });
         default:
             return state;
     }
