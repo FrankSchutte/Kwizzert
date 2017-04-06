@@ -1,4 +1,4 @@
-import {ADD_TEAMS, ADD_SCORE} from '../constants';
+import {ADD_TEAMS, ADD_SCORE, CALCULATE_SCORE} from '../constants';
 
 const teamsActionCreator = {
     addTeams(teams) {
@@ -6,6 +6,9 @@ const teamsActionCreator = {
     },
     addScore(teamName) {
         return {type: ADD_SCORE, teamName: teamName};
+    },
+    calculateScore() {
+        return {type: CALCULATE_SCORE};
     }
 };
 

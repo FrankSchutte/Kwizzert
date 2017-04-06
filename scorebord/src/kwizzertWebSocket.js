@@ -31,7 +31,6 @@ const kwizzertWebSocket = {
                 case 'SEND_RATING':
                     store.dispatch(questionActionCreator.showResults(message));
                     if (message.approved) {
-                        console.log('PUNTEN TOEVOEGEN');
                         store.dispatch(teamsActionCreator.addScore(message.teamName));
                     }
                     break;
@@ -39,6 +38,7 @@ const kwizzertWebSocket = {
                     //ToDo Finish round
                     break;
                 case 'FINISH_QUIZ':
+                    store.dispatch(teamsActionCreator.calculateScore());
                     store.dispatch(routingActionCreator.finishQuiz());
             }
         };
