@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {REGISTER, WAIT} from '../constants';
+import {REGISTER, WAIT, QUESTION} from '../constants';
 import RegisterContainer from '../containers/RegisterContainer';
 import WaitContainer from "../containers/WaitContainer";
+import QuestionContainer from '../containers/QuestionContainer';
 
 class Main extends Component {
     render() {
@@ -14,6 +15,9 @@ class Main extends Component {
                 break;
             case WAIT:
                 page = <WaitContainer/>;
+                break;
+            case QUESTION:
+                page = <QuestionContainer/>;
                 break;
             default:
                 page = <RegisterContainer/>;

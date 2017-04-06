@@ -3,19 +3,30 @@ const express = require('express');
 const mongo = require('mongodb');
 const ObjectID = require('mongodb').ObjectID;
 const bodyParser = require('body-parser');
-const secrets = require('./secrets');
 const api = express.Router();
 api.use(bodyParser.json());
 
 // Connect to database
 let db;
-mongo.connect('mongodb://' +
+
+if(process.env.MONGODB_USERNAME && process.env.MONGODB_PASSWORD) {
+    mongo.connect('mongodb://' +
+        process.env.MONGODB_USERNAME + ':' +
+        process.env.MONGODB_PASSWORD + '@' +
+        'ds119220.mlab.com:19220/kwizzert', (err, database) => {
+        if (err) throw err;
+        db = database;
+    });
+} else {
+    const secrets = require('./secrets');
+    mongo.connect('mongodb://' +
         secrets.mongodb.username + ':' +
         secrets.mongodb.password + '@' +
         secrets.mongodb.url, (err, database) => {
-    if (err) throw err;
-    db = database;
-});
+        if (err) throw err;
+        db = database;
+    });
+}
 
 // LOGIN
 api.post('/login', (req, res) => {

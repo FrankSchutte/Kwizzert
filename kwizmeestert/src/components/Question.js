@@ -1,13 +1,22 @@
 import React, {Component, PropTypes} from 'react';
-import ListItem from "./ListItem";
+import RateAnswers from "./RateAnswers";
 
 class Question extends Component {
+
+    onToggleActivity() {
+        this.props.onToggleActivity(this.props.code, this.props.question.active);
+    }
+
+    onStopQuestion() {
+        this.props.onStopQuestion(this.props.code, this.props.questionCount);
+    }
+
     render() {
         return (
             <div>
-                <h1>Vraag {this.props.questionCount}/12</h1>
+                <h1>Vraag {this.props.questionCount + 1}/12</h1>
                 <div>
-                    <button onClick={this.props.onToggleQuestionActivity}>
+                    <button onClick={this.onToggleActivity.bind(this)}>
                         {!this.props.question.active ? 'Start' : 'Sluit'} vraag
                     </button>
                 </div>
@@ -19,28 +28,21 @@ class Question extends Component {
                     <span>Antwoord: {this.props.question.answer}</span>
                 </div>
                 <hr/>
-                {this.props.answers.map((answer) => (
-                    <ListItem
-                        key={answer.teamName}
-                        checked={answer.approved ? 'checked' : ''}
-                        name={answer.teamName + ' ' + answer.answer}
-                        onClickHandler={this.props.onToggleAnswer.bind(this, answer.teamName)}
-                    />)
-                )}
+                <RateAnswers answers={this.props.answers}/>
                 <hr/>
-                <button onClick={this.props.onCloseQuestion}>Volgende vraag</button>
+                <button onClick={this.onStopQuestion.bind(this)}>Volgende vraag</button>
             </div>
         )
     }
 }
 
 Question.propTypes = {
-    question: PropTypes.object.isRequired,
+    code: PropTypes.string.isRequired,
     questionCount: PropTypes.number.isRequired,
-    onToggleQuestionActivity: PropTypes.func.isRequired,
+    question: PropTypes.object.isRequired,
     answers: PropTypes.array.isRequired,
-    onToggleAnswer: PropTypes.func.isRequired,
-    onCloseQuestion: PropTypes.func.isRequired
+    onToggleActivity: PropTypes.func.isRequired,
+    onStopQuestion: PropTypes.func.isRequired
 };
 
 export default Question;

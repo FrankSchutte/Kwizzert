@@ -3,13 +3,7 @@ import update from 'immutability-helper';
 import {ADD_TEAM, TOGGLE_TEAM} from '../constants';
 
 const initialState = {
-    teams: [{
-        teamName: 'team 1'
-    }, {
-        teamName: 'team 2'
-    }, {
-        teamName: 'team 3'
-    }]
+    teams: []
 };
 
 const teamReducer = (state = initialState, action) => {
@@ -19,15 +13,10 @@ const teamReducer = (state = initialState, action) => {
                 teams: {$push: [{teamName: action.teamName}]}
             });
         case TOGGLE_TEAM:
-            let index;
-            state.teams.forEach(function (team, i) {
-                if(action.team === team) {
-                    index = i;
-                }
-            });
+            const teams = state.teams.filter((team) => team !== action.team);
 
             return update(state, {
-                teams: {[index]: {approved: {$set: !state.teams[index].approved}}}
+                teams: {$set: teams}
             });
         default:
             return state;

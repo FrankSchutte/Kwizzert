@@ -1,33 +1,34 @@
 import update from 'immutability-helper';
 
-import {CONFIRM_ANSWER, TOGGLE_ANSWER, CLOSE_QUESTION} from '../constants';
+import {SEND_ANSWER, TOGGLE_ANSWER, STOP_QUESTION} from '../constants';
 
 const initialState = {
-    answers: [{
-        teamName: 'team 1',
-        answer: 'poo poo',
-        approved: false
-    }, {
-        teamName: 'team 2',
-        answer: 'pee pee',
-        approved: false
-    }]
+    answers: []
 };
 
 const answerReducer = (state = initialState, action) => {
     let index;
     switch (action.type) {
-        case CONFIRM_ANSWER:
+        case SEND_ANSWER:
+            index = -1;
             state.answers.forEach(function (answer, i) {
-                if (action.teamName === answer.teamName) {
+                if (action.answer.teamName === answer.teamName) {
                     index = i;
                 }
             });
 
+            // if teamName already exists update the answer
+            if (index > -1) {
+                return update(state, {
+                    answers: {[index]: {$set: action.answer}}
+                });
+            }
+            // if teamName is new add a new answer
             return update(state, {
-                answers: {[index]: {answer: action.answer}}
+                answers: {$push: [action.answer]}
             });
         case TOGGLE_ANSWER:
+            index = -1;
             state.answers.forEach(function (answer, i) {
                 if (action.teamName === answer.teamName) {
                     index = i;
@@ -37,7 +38,7 @@ const answerReducer = (state = initialState, action) => {
             return update(state, {
                 answers: {[index]: {approved: {$set: !state.answers[index].approved}}}
             });
-        case CLOSE_QUESTION:
+        case STOP_QUESTION:
             return initialState;
         default:
             return state;

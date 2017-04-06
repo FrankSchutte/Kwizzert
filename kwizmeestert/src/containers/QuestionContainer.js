@@ -4,15 +4,15 @@ import Question from '../components/Question';
 import questionActionCreator from '../actions/questionActionCreator';
 
 const mapStateToProps = (state) => ({
-    question: state.questionReducer.activeQuestion,
+    code: state.routingReducer.code,
     questionCount: state.questionReducer.questionCount,
+    question: state.questionReducer.activeQuestion,
     answers: state.answerReducer.answers
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onToggleQuestionActivity: () => dispatch(questionActionCreator.toggleQuestionActivity()),
-    onToggleAnswer: (teamName) => dispatch(questionActionCreator.toggleAnswer(teamName)),
-    onCloseQuestion: () => dispatch(questionActionCreator.closeQuestion())
+    onToggleActivity: (code, active) => dispatch(questionActionCreator.toggleActivity(code, active)),
+    onStopQuestion: (code, questionCount) => dispatch(questionActionCreator.stopQuestion(code, questionCount))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Question);
