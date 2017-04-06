@@ -1,7 +1,7 @@
 import request from 'superagent';
 
-const url = process.env.API_URL || 'http://localhost:3000';
-
+// const url = process.env.API_URL || 'http://localhost:3000';
+const url = '';
 console.log('environment variable:', process.env.API_URL);
 console.log('url:', url);
 
