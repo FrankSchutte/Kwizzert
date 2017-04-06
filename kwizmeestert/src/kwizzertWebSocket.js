@@ -2,8 +2,10 @@ import teamActionCreator from './actions/teamActionCreator';
 import questionActionCreator from './actions/questionActionCreator';
 
 const url = process.env.WEBSOCKET_URL || 'ws://localhost:3000/ws';
+
 console.log('environment variable:', process.env.WEBSOCKET_URL);
 console.log('url:', url);
+
 let webSocket;
 
 const kwizzertWebSocket = {
