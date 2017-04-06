@@ -1,8 +1,8 @@
 import teamActionCreator from './actions/teamActionCreator';
 import questionActionCreator from './actions/questionActionCreator';
 
-const url = process.env.WEBSOCKET_URL || 'ws://localhost:3000/ws';
-
+// const url = process.env.WEBSOCKET_URL || 'ws://localhost:3000/ws';
+const url = 'wss://qwizzert.herokuapp.com/ws';
 console.log('environment variable:', process.env.WEBSOCKET_URL);
 console.log('url:', url);
 
