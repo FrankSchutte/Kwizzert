@@ -12,6 +12,15 @@
     "mongodb": "^2.2.25",
     "ws": "^2.2.2"
   },
+  "devDependencies": {
+    "react-scripts": "0.9.5"
+  },
+  "cacheDirectories": [
+    "node_modules",
+    "kwizmeestert",
+    "team",
+    "scorebord"
+  ],
   "engines": {
     "node": "7.8.0"
   }
