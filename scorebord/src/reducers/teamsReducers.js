@@ -20,15 +20,13 @@ const teamsReducers = (state = initialState, action) => {
 
         case ADD_SCORE:
             let index;
-            console.log(action);
             state.teams.forEach((team, i) => {
                 if (team.teamName === action.teamName) {
                     index = i;
                 }
             });
-            if (!index && index !== 0) {
+            if (!index && index !== 0)
                 return state;
-            }
 
             return update(state, {
                 teams: {[index]: {roundScore: {$set: state.teams[index].roundScore + 1}}}
@@ -47,31 +45,30 @@ const teamsReducers = (state = initialState, action) => {
             }
 
         case CALCULATE_SCORE:
-        if (state.questionNum === 12) {
-            const compare = (a,b) => (b.roundScore-a.roundScore);
-            const teamCopy = state.teams.slice(0, state.teams.length);
-            teamCopy.sort(compare);
+            if (state.questionNum === 12) {
+                const compare = (a,b) => (b.roundScore-a.roundScore);
+                const teamCopy = state.teams.slice(0, state.teams.length);
+                teamCopy.sort(compare);
 
-            teamCopy.forEach((team, i) => {
-                if (team.roundScore > 0) {
-                    if (i === 0)
-                        team.totalScore += 4;
-                    else if (i === 1)
-                        team.totalScore += 2;
-                    else if (i === 2)
-                        team.totalScore += 1;
-                } else {
-                    team.totalScore += 0.1;
-                }
-                team.roundScore = 0;
-            });
-            teamCopy.forEach((team) => team.roundScore = 0);
-            return update(state, {
-                teams: {$set: teamCopy}
-            });
-            
-        } else {
-            return state;
+                teamCopy.forEach((team, i) => {
+                    if (team.roundScore > 0) {
+                        if (i === 0)
+                            team.totalScore += 4;
+                        else if (i === 1)
+                            team.totalScore += 2;
+                        else if (i === 2)
+                            team.totalScore += 1;
+                    } else {
+                        team.totalScore += 0.1;
+                    }
+                    team.roundScore = 0;
+                });
+                teamCopy.forEach((team) => team.roundScore = 0);
+                return update(state, {
+                    teams: {$set: teamCopy}
+                });
+            } else {
+                return state;
         }
 
         default:
