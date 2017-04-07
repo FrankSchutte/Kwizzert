@@ -70,7 +70,7 @@ const configure = (wsServer) => {
                         messageObject.code);
                     break;
 
-                case 'ROUND_FINISHED':
+                case 'FINISH_ROUND':
                     sendRoundFinishedNoticeToScoreboard(wsServer, messageObject.code);
                     break;
 
@@ -199,7 +199,7 @@ const sendRoundFinishedNoticeToScoreboard = (wsServer, quizcode) => {
         const clientInfo = socketMap.get(client);
         if (clientInfo && clientInfo.code === quizcode && clientInfo.type === types.scoreboard) {
             const message = {
-                action: 'ROUND_FINISHED'
+                action: 'FINISH_ROUND'
             };
             client.send(JSON.stringify(message));
         }
@@ -209,7 +209,7 @@ const sendRoundFinishedNoticeToScoreboard = (wsServer, quizcode) => {
 const sendQuizFinishedNoticeToClients = (wsServer, quizcode) => {
     wsServer.clients.forEach((client) => {
         const clientInfo = socketMap.get(client);
-        if (clientInfo && clientInfo.code === quizcode && clientInfo.type !== types.quizmaster) {
+        if (clientInfo && clientInfo.code === quizcode && clientInfo.type === types.scoreboard) {
             const message = {
                 action: 'FINISH_QUIZ'
             };
