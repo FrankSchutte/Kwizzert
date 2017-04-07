@@ -66,16 +66,6 @@ app.route('/*')
         res.sendFile(path.join(__dirname, 'index.html'));
     });
 
-app.listen(port, () => {
+httpServer.listen(port, () => {
     console.log("Server started and listening to ::" + port);
 });
-
-const fs = require("fs");
-const readChildren = (dir) => {
-    fs.readdirSync(dir).forEach(function(file) {
-        console.log(file);
-    });
-
-};
-
-readChildren(__dirname + '/kwizmeestert');

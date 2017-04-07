@@ -6,8 +6,7 @@ const port = process.env.PORT || 3000;
 
 module.exports.create = (httpServer) => (
     new ws.Server({
-        server: httpServer,
-        port: port
+        server: httpServer
     })
 );
 
