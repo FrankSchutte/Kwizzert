@@ -12,20 +12,22 @@ import kwizzertAPI from '../kwizzertAPI';
 import kwizzertWebSocket from '../kwizzertWebSocket';
 
 const questionActionCreator = {
-    fetchQuestions() {
+    fetchQuestions(categories) {
         return (dispatch) => {
             dispatch({type: PENDING_QUESTIONS});
-            kwizzertAPI.fetchQuestions('Algemeen', (err, res) => {
-                if (err) {
-                    dispatch({type: RECEIVE_QUESTIONS, success: false});
-                } else {
-                    dispatch({
-                        type: RECEIVE_QUESTIONS,
-                        success: true,
-                        category: res.categoryName,
-                        questions: res.questions
-                    });
-                }
+            categories.forEach((category) => {
+                kwizzertAPI.fetchQuestions(category.categoryName, (err, res) => {
+                    if (err) {
+                        dispatch({type: RECEIVE_QUESTIONS, success: false});
+                    } else {
+                        dispatch({
+                            type: RECEIVE_QUESTIONS,
+                            success: true,
+                            categoryName: res.category,
+                            questions: res.questions
+                        });
+                    }
+                });
             });
         };
     },

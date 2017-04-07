@@ -26,6 +26,7 @@ class RateAnswers extends Component {
 }
 
 RateAnswers.propTypes = {
+    code: PropTypes.string.isRequired,
     answers: PropTypes.array.isRequired
 };
 
