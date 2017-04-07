@@ -17,6 +17,7 @@ const types = {
 const configure = (wsServer) => {
     wsServer.on('connection', (websocket) => {
         console.log("Connection created");
+        setInterval(() => keepConnectionAlive(websocket), 15000);
 
         websocket.on('message', (message) => {
             console.log(message);
@@ -214,6 +215,12 @@ const sendQuizFinishedNoticeToClients = (wsServer, quizcode) => {
             client.send(JSON.stringify(message));
         }
     });
+};
+
+
+const keepConnectionAlive = (socket) => {
+    console.log("KEEP ALIVE");
+    socket.send('ping');
 };
 
 module.exports.configure = configure;
