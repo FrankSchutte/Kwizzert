@@ -1,9 +1,7 @@
-'use strict';
-
 import registerActionCreator from './actions/registerActionCreator';
 import questionActionCreator from './actions/questionActionCreator';
 
-const url = process.env.WEBSOCKET_URL || 'ws://localhost:3001/ws';
+const url = location.origin.replace(/^http/, 'ws');
 
 let webSocket;
 

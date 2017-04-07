@@ -1,13 +1,7 @@
-'use strict';
-
 import teamActionCreator from './actions/teamActionCreator';
 import questionActionCreator from './actions/questionActionCreator';
 
-// const url = process.env.WEBSOCKET_URL || 'ws://localhost:3001/ws';
-// const url = 'ws://qwizzert.herokuapp.com/';
 const url = location.origin.replace(/^http/, 'ws');
-console.log('environment variable:', process.env.WEBSOCKET_URL);
-console.log('url:', url);
 
 let webSocket;
 

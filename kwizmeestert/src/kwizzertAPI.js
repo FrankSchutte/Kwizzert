@@ -1,11 +1,6 @@
-'use strict';
-
 import request from 'superagent';
 
-// const url = process.env.API_URL || 'http://localhost:3000';
 const url = location.origin;
-console.log('environment variable:', process.env.API_URL);
-console.log('url:', url);
 
 let kwizzertAPI = {
     createQuiz(callback) {

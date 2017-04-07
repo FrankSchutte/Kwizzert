@@ -2,8 +2,6 @@
 const ws = require('ws');
 const socketMap = new WeakMap();
 
-const port = process.env.PORT || 3000;
-
 module.exports.create = (httpServer) => (
     new ws.Server({
         server: httpServer
