@@ -16,7 +16,7 @@ const kwizzertWebSocket = {
 
         webSocket.onmessage = (event) => {
             const message = JSON.parse(event.data);
-            console.log('received:' + message);
+            console.log('received:', message);
             switch (message.action) {
                 case 'START_QUIZ':
                     store.dispatch(teamsActionCreator.addTeams(message.teams));
