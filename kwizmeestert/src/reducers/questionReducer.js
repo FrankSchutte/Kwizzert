@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 
-import {RECEIVE_QUESTIONS, CHOOSE_QUESTION, TOGGLE_QUESTION_ACTIVITY, STOP_QUESTION, FINISH_ROUND} from '../constants';
+import {RECEIVE_QUESTIONS, CHOOSE_QUESTION, TOGGLE_QUESTION_ACTIVITY, FINISH_ROUND} from '../constants';
 
 const initialState = {
     questions: [],
@@ -24,15 +24,12 @@ const questionReducer = (state = initialState, action) => {
             return state;
         case CHOOSE_QUESTION:
             return update(state, {
-                activeQuestion: {$set: action.question}
+                activeQuestion: {$set: action.question},
+                questionCount: {$set: state.questionCount + 1}
             });
         case TOGGLE_QUESTION_ACTIVITY:
             return update(state, {
                 activeQuestion: {active: {$set: !state.activeQuestion.active}}
-            });
-        case STOP_QUESTION:
-            return update(state, {
-                questionCount: {$set: state.questionCount + 1},
             });
         case FINISH_ROUND:
             return update(state, {
