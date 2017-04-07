@@ -11,8 +11,13 @@ const questionReducer = (state = initialState, action) => {
     switch (action.type) {
         case RECEIVE_QUESTIONS:
             if (action.success) {
+                const questions = {
+                    categoryName: action.categoryName,
+                    questions: action.questions
+                };
+
                 return update(state, {
-                    questions: {$set: action.questions}
+                    questions: {$push: [questions]}
                 });
             }
             return state;

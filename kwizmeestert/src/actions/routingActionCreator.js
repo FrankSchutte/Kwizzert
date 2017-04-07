@@ -20,8 +20,8 @@ const routingActionCreator = {
         kwizzertWebSocket.startQuiz(code, teams);
         return {type: START_QUIZ};
     },
-    startRound(categories) {
-        return {type: START_ROUND, categories: [categories]}
+    startRound() {
+        return {type: START_ROUND}
     }
 };
 
