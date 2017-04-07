@@ -1,6 +1,6 @@
 import request from 'superagent';
 
-const url = 'http://localhost:3000';
+const url = location.origin;
 
 let kwizzertAPI = {
     createQuiz(callback) {
