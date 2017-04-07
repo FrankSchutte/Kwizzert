@@ -101,7 +101,7 @@ const kwizzertWebSocket = {
     },
     roundFinished(code) {
         const message = {
-            action: 'ROUND_FINISHED',
+            action: 'FINISH_ROUND',
             code: code
         };
 

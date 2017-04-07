@@ -4,7 +4,8 @@ import {RECEIVE_QUESTIONS, CHOOSE_QUESTION, TOGGLE_QUESTION_ACTIVITY, STOP_QUEST
 
 const initialState = {
     questions: [],
-    questionCount: 0
+    questionCount: 0,
+    roundCount: 1
 };
 
 const questionReducer = (state = initialState, action) => {
@@ -30,9 +31,13 @@ const questionReducer = (state = initialState, action) => {
                 activeQuestion: {active: {$set: !state.activeQuestion.active}}
             });
         case STOP_QUESTION:
+            return update(state, {
+                questionCount: {$set: state.questionCount + 1},
+            });
         case ROUND_FINISHED:
             return update(state, {
-                questionCount: {$set: action.questionCount}
+                questionCount: {$set: 0},
+                roundCount: {$set: state.roundCount + 1}
             });
         default:
             return state;

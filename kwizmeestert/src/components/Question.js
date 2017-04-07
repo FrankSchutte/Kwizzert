@@ -14,7 +14,7 @@ class Question extends Component {
     render() {
         return (
             <div>
-                <h1>Vraag {this.props.questionCount + 1}/12</h1>
+                <h1>Ronde {this.props.roundCount} - Vraag {this.props.questionCount + 1}/12</h1>
                 <div>
                     <button onClick={this.onToggleActivity.bind(this)}>
                         {!this.props.question.active ? 'Start' : 'Sluit'} vraag
@@ -39,6 +39,7 @@ class Question extends Component {
 Question.propTypes = {
     code: PropTypes.string.isRequired,
     questionCount: PropTypes.number.isRequired,
+    roundCount: PropTypes.number.isRequired,
     question: PropTypes.object.isRequired,
     answers: PropTypes.array.isRequired,
     onToggleActivity: PropTypes.func.isRequired,

@@ -36,7 +36,7 @@ const questionActionCreator = {
         return {type: CHOOSE_QUESTION, question: question};
     },
     toggleActivity(code, active) {
-        if(active) {
+        if (active) {
             kwizzertWebSocket.stopQuestion(code);
         } else {
             kwizzertWebSocket.startQuestion(code);
@@ -47,15 +47,16 @@ const questionActionCreator = {
         return {type: SEND_ANSWER, answer: answer}
     },
     stopQuestion(code, questionCount) {
-        questionCount++;
-        kwizzertWebSocket.stopQuestion(code);
+        return (dispatch) => {
+            questionCount++;
+            kwizzertWebSocket.stopQuestion(code);
+            dispatch({type: STOP_QUESTION, questionCount: questionCount});
 
-        if (questionCount >= 12) {
-            questionCount = 0;
-            kwizzertWebSocket.roundFinished(code);
-            return ({type: ROUND_FINISHED, questionCount: questionCount});
+            if (questionCount >= 2) {
+                kwizzertWebSocket.roundFinished(code);
+                dispatch({type: ROUND_FINISHED});
+            }
         }
-        return ({type: STOP_QUESTION, questionCount: questionCount});
     }
 };
 
