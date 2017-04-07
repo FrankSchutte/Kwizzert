@@ -221,8 +221,7 @@ const sendQuizFinishedNoticeToClients = (wsServer, quizcode) => {
 
 const keepConnectionAlive = (wsServer) => {
     wsServer.clients.forEach((client) => {
-        const clientInfo = socketMap.get(client);
-        if (clientInfo && client.readyState !== 2 && client.readyState !== 3) {
+        if (client.readyState !== 2 && client.readyState !== 3) {
             client.send(JSON.stringify({ping: 'pong'}));
         }
     });
