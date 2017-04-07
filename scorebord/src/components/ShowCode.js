@@ -1,11 +1,12 @@
 import React, {Component, PropTypes} from 'react';
+import CenterText from './styling/CenterText';
 
 class ShowCode extends Component {
     render() {
         return (
-            <div>
+            <CenterText>
                 <h2>{this.props.code}</h2>
-            </div>
+            </CenterText>
         )
     }
 }
