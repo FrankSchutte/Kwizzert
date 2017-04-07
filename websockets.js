@@ -4,8 +4,7 @@ const socketMap = new WeakMap();
 
 module.exports.create = (httpServer) => (
     new ws.Server({
-        server: httpServer,
-        path: '/ws'
+        server: httpServer
     })
 );
 

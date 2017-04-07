@@ -18,7 +18,7 @@ const allowCrossDomain = (req, res, next) => {
     next();
 };
 
-// app.use(allowCrossDomain);
+app.use(allowCrossDomain);
 app.use('/api/v1', require('./api'));
 
 app.route('/static/*')
