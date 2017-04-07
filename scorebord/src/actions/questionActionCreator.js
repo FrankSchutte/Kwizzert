@@ -1,13 +1,12 @@
-import {PENDING_QUESTION, RECEIVE_QUESTION, START_QUESTION, STOP_QUESTION, RESET_QUESTION, ADD_RESULTS, COUNT_QUESTIONS, CALCULATE_SCORE, SHOW_ANSWERS} from '../constants';
+import {PENDING_QUESTION, RECEIVE_QUESTION, START_QUESTION, STOP_QUESTION, RESET_QUESTION, ADD_RESULTS, INCREASE_QUESTION_COUNT, CALCULATE_SCORE, SHOW_ANSWERS} from '../constants';
 import kwizzertAPI from '../kwizzertAPI';
 
 const questionActionCreator = {
     fetchQuestion(questionId) {
         return (dispatch) => {
-            dispatch({type: PENDING_QUESTION});
             dispatch({type: RESET_QUESTION});
-            dispatch({type: CALCULATE_SCORE});
-            dispatch({type: COUNT_QUESTIONS});
+            dispatch({type: INCREASE_QUESTION_COUNT});
+
             kwizzertAPI.fetchQuestion(questionId, (err, res) => {
                 if (err)
                     dispatch({type: RECEIVE_QUESTION, success: false});

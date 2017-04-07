@@ -35,12 +35,10 @@ const kwizzertWebSocket = {
                     break;
                 case 'SEND_RATING':
                     store.dispatch(questionActionCreator.addResults(message));
-                    if (message.approved) {
-                        store.dispatch(teamsActionCreator.addScore(message.teamName));
-                    }
+                    store.dispatch(teamsActionCreator.addScore(message));
                     break;
                 case 'FINISH_ROUND':
-                    //ToDo Finish round
+                    store.dispatch(teamsActionCreator.calculateScore());
                     break;
                 case 'FINISH_QUIZ':
                     store.dispatch(teamsActionCreator.calculateScore());
