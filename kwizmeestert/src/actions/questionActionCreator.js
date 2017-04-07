@@ -5,7 +5,7 @@ import {
     TOGGLE_QUESTION_ACTIVITY,
     SEND_ANSWER,
     STOP_QUESTION,
-    ROUND_FINISHED
+    FINISH_ROUND
 } from '../constants';
 
 import kwizzertAPI from '../kwizzertAPI';
@@ -54,7 +54,7 @@ const questionActionCreator = {
 
             if (questionCount >= 2) {
                 kwizzertWebSocket.roundFinished(code);
-                dispatch({type: ROUND_FINISHED});
+                dispatch({type: FINISH_ROUND});
             }
         }
     }
