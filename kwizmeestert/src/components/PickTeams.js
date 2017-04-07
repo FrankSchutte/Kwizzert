@@ -24,7 +24,7 @@ class PickTeams extends Component {
 
         return (
             <div>
-                <h1>Teams kiezen</h1>
+                <h1>Teams kiezen voor kwiz: {this.props.code}</h1>
                 {teams}
                 <button onClick={this.onStartQuiz}>Starten</button>
             </div>
