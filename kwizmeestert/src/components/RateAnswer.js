@@ -2,8 +2,19 @@ import React, {Component, PropTypes} from 'react';
 
 class RateAnswer extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            approved: undefined
+        };
+    }
+
     onClickHandler(approved) {
-        this.props.onClickHandler(approved);
+        if (approved !== this.state.approved) {
+            this.setState({approved: approved});
+            this.props.onClickHandler(approved);
+        }
     }
 
     render() {
@@ -17,7 +28,7 @@ class RateAnswer extends Component {
                     <input
                         type="radio"
                         name={this.props.teamName}
-                        onClick={this.onClickHandler.bind(this,false)}/>
+                        onClick={this.onClickHandler.bind(this, false)}/>
                     {this.props.teamName} {this.props.answer}
                 </span>
                 <hr/>
