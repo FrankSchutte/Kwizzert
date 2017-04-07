@@ -33,7 +33,7 @@ app.route('/static/*')
             res.sendFile(path.join(__dirname, 'team/build', req.path));
         }
         else if (referer.includes('/scorebord')) {
-            res.sendFile(path.join(__dirname, 'scorebord/build'));
+            res.sendFile(path.join(__dirname, 'scorebord/build', req.path));
         }}}
     );
 
