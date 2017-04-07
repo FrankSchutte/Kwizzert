@@ -1,3 +1,5 @@
+'use strict';
+
 import request from 'superagent';
 
 const url = process.env.API_URL || 'http://localhost:3000';
