@@ -4,11 +4,13 @@ import ListItem from "./ListItem";
 class PickQuestion extends Component {
 
     componentDidMount() {
-        const selectedCategories = this.props.categories.filter((category) => {
-            return category.approved;
-        });
+        if(this.props.questions.length === 0) {
+            const selectedCategories = this.props.categories.filter((category) => {
+                return category.approved;
+            });
 
-        this.props.fetchQuestions(selectedCategories);
+            this.props.fetchQuestions(selectedCategories);
+        }
     }
 
     onQuestionSelect(question) {
