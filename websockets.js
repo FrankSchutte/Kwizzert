@@ -220,7 +220,7 @@ const sendQuizFinishedNoticeToClients = (wsServer, quizcode) => {
 
 const keepConnectionAlive = (socket) => {
     console.log("KEEP ALIVE");
-    socket.send('ping');
+    socket.send(JSON.stringify({ping: 'pong'}));
 };
 
 module.exports.configure = configure;
