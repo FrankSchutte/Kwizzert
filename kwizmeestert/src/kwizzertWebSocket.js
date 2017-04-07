@@ -104,7 +104,7 @@ const kwizzertWebSocket = {
             action: 'FINISH_ROUND',
             code: code
         };
-
+        console.log('sending finish round', message);
         webSocket.send(JSON.stringify(message));
     }
 };

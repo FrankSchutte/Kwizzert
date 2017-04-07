@@ -48,9 +48,8 @@ const questionActionCreator = {
     },
     stopQuestion(code, questionCount) {
         return (dispatch) => {
-            questionCount++;
             kwizzertWebSocket.stopQuestion(code);
-            dispatch({type: STOP_QUESTION, questionCount: questionCount});
+            dispatch({type: STOP_QUESTION});
 
             if (questionCount >= 2) {
                 kwizzertWebSocket.roundFinished(code);
