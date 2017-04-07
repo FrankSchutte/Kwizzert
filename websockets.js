@@ -2,11 +2,13 @@
 const ws = require('ws');
 const socketMap = new WeakMap();
 
-module.exports.create = (httpServer) => (
-    new ws.Server({
+module.exports.create = (httpServer) => {
+    const server = new ws.Server({
         server: httpServer
-    })
-);
+    });
+    setInterval(() => keepConnectionAlive(server), 15000);
+    return server;
+};
 
 const types = {
     scoreboard: 'scoreboard',
@@ -17,7 +19,6 @@ const types = {
 const configure = (wsServer) => {
     wsServer.on('connection', (websocket) => {
         console.log("Connection created");
-        setInterval(() => keepConnectionAlive(websocket), 15000);
 
         websocket.on('message', (message) => {
             console.log(message);
@@ -218,9 +219,13 @@ const sendQuizFinishedNoticeToClients = (wsServer, quizcode) => {
 };
 
 
-const keepConnectionAlive = (socket) => {
-    console.log("KEEP ALIVE");
-    socket.send(JSON.stringify({ping: 'pong'}));
+const keepConnectionAlive = (wsServer) => {
+    wsServer.clients.forEach((client) => {
+        const clientInfo = socketMap.get(client);
+        if (clientInfo && client.readyState !== 2 && client.readyState !== 3) {
+            client.send(JSON.stringify({ping: 'pong'}));
+        }
+    });
 };
 
 module.exports.configure = configure;
