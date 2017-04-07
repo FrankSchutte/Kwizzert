@@ -4,8 +4,8 @@ const teamsActionCreator = {
     addTeams(teams) {
         return {type: ADD_TEAMS, teams: teams};
     },
-    addScore(teamName) {
-        return {type: ADD_SCORE, teamName: teamName};
+    addScore(message) {
+        return {type: ADD_SCORE, message: message};
     },
     calculateScore() {
         return {type: CALCULATE_SCORE};
