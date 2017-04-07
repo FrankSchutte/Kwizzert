@@ -2,11 +2,13 @@ import routingActionCreator from './actions/routingActionCreator';
 import questionActionCreator from './actions/questionActionCreator';
 import teamsActionCreator from './actions/teamsActionCreator';
 
+const url = location.origin.replace(/^http/, 'ws');
+
 let webSocket;
 
 const kwizzertWebSocket = {
     init (store) {
-        webSocket = new WebSocket('ws://localhost:3001/ws');
+        webSocket = new WebSocket(url);
 
         webSocket.onopen = () => {
             console.log('connected to server');
