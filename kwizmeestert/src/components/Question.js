@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import RateAnswers from "./RateAnswers";
 
 class Question extends Component {
-
+    
     onToggleActivity() {
         this.props.onToggleActivity(this.props.code, this.props.question.active);
     }
@@ -30,7 +30,10 @@ class Question extends Component {
                 <hr/>
                 <RateAnswers code={this.props.code} answers={this.props.answers}/>
                 <hr/>
-                <button onClick={this.onStopQuestion.bind(this)}>Volgende vraag</button>
+                {!this.props.question.active ?
+                   <button onClick={this.onStopQuestion().bind(this)}>Volgende vraag</button>
+                    : ''
+                }
             </div>
         )
     }
