@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import CenterText from './styling/CenterText';
 
 class Results extends Component {
     render() {
@@ -15,13 +16,13 @@ class Results extends Component {
         else thirdplace = '';
 
         return (
-            <div>
+            <CenterText>
                 <h1>{winner}</h1>
                 <br/>
                 <h2>{secondplace}</h2>
                 <br/>
                 <h3>{thirdplace}</h3>
-            </div>
+            </CenterText>
         )
     }
 }
