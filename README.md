@@ -288,3 +288,20 @@ Een kwizmeestert sluit een kwiz.
     code: "..."
 }
 ```
+
+## Build process
+### Lokaal
+De kwizzert applicatie bestaat uit drie clients en een server. Elk onderdeel heeft zijn eigen node configuratie, daarom moeten de dependencies van iedere app afzonderlijk geïnstalleerd worden vanuit de root folder.
+```
+> npm install                       (voor de server)
+> cd kwizmeestert && npm install    (voor de kwizmeestert)
+> cd team && npm install            (voor de teams)
+> cd scorebord && npm install       (voor het scorebord)
+```
+Om de clients te gebruiken met react-scripts kan iedere app afzonderlijk worden gestart met npm start.
+
+### Heroku
+De kwizzert applicatie kan op een Heroku server draaien. Als buildpack wordt heroku/nodejs gebruikt, om kwizzert te starten wordt het npm start commando door Heroku uitgevoerd.
+Om ervoor te zorgen dat alle dependencies zijn gedownload en dat de react apps zijn gebuild is er een heroku-postbuild toegevoegd aan de package.json scripts.
+Heroku is gekoppeld aan de git repository [https://github.com/FrankSchutte/Kwizzert]  
+Na het deployen is kwizzert bereikbaard via [http://qwizzert.herokuapp.com/team]
