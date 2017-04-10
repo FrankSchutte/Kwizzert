@@ -89,6 +89,7 @@ const teamsReducers = (state = initialState, action) => {
                 } else {
                     team.totalScore += 0.1;
                 }
+                team.totalScore = round(team.totalScore, 1);
                 team.roundScore = 0;
             });
             teamCopy.forEach((team) => team.roundScore = 0);
@@ -102,5 +103,9 @@ const teamsReducers = (state = initialState, action) => {
             return state;
     }
 };
+
+function round(value, decimals) {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+}
 
 export default teamsReducers;
