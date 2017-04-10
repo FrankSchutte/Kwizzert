@@ -37,20 +37,28 @@ class Quiz extends Component {
 
         let results;
         if (this.props.results && this.props.status !== 'invisible') {
-            results = this.props.results.map((result) =>
-                <Box key={result.teamName + '1'}>
-                    <p>Team: {result.teamName}</p>
-                    {this.props.status === 'answer' ?
-                        <div>
-                            <p>Antwoord: {result.answer}</p>
-                            {result.approved !== null ?
-                                <p>{result.approved ? 'Goed' : 'Fout'}</p>
-                                : ''
-                            }
-                        </div>
-                        : ''
-                    }
-                </Box>
+            results = this.props.results.map((result) => {
+                let rating;
+                if (result.approved === null) {
+                    rating = 'rating_none';
+                } else if (result.approved) {
+                    rating = 'rating_good';
+                } else
+                    rating = 'rating_bad';
+
+                return (
+                    <Box key={result.teamName + '1'} rating={rating}>
+                        <p>Team: {result.teamName}</p>
+                        {this.props.status === 'answer' ?
+                            <div>
+                                <p>Antwoord: {result.answer}</p>
+                            </div>
+                            : ''
+                        }
+                    </Box>
+                );
+            }
+
             )
         } else results = '';
 

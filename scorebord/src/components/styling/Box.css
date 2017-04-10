@@ -1,6 +1,21 @@
-#box_wrapper {
+.rating_good {
+    background-color: green;
     margin: 1%;
+    padding: 1%;
+    display: inline-block;
+}
+
+.rating_bad {
+    background-color: red;
+    margin: 1%;
+    padding: 1%;
+    display: inline-block;
+
+}
+
+.rating_none {
     background-color: cadetblue;
+    margin: 1%;
     padding: 1%;
     display: inline-block;
 }

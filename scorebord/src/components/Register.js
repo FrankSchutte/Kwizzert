@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import CenterText from './styling/CenterText';
 
 class Register extends Component {
     constructor(props) {
@@ -16,26 +17,27 @@ class Register extends Component {
 
     render() {
         return (
-            <div>
+            <CenterText>
                 <h1>Registreer voor de Kwiz</h1>
                 <form onSubmit={this.onSubmit}>
                     <div>
                         Code
                         <input type="text" id="code"/>
                     </div>
+                    <br/>
                     <input type="submit" value="Registreer"/>
                 </form>
                 {this.props.quiz_found === false ?
                     <p>Aanmelden bij quiz mislukt{this.state.exclamation}</p> : ''
                 }
-            </div>
+            </CenterText>
         )
     }
 }
 
 Register.propTypes = {
     onRegister: PropTypes.func.isRequired,
-    quiz_found: PropTypes.bool.isRequired
+    quiz_found: PropTypes.bool
 };
 
 export default Register;
