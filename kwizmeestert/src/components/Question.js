@@ -23,7 +23,7 @@ class Question extends Component {
     render() {
         return (
             <div>
-                <h1>Ronde {this.props.roundCount} - Vraag {this.props.questionCount}/12</h1>
+                <h1>Ronde {this.props.roundCount} - Vraag {this.props.questionCount}/6</h1>
                 <div>
                     <button onClick={this.onToggleActivity.bind(this)}>
                         {!this.props.question.active ? 'Start' : 'Sluit'} vraag

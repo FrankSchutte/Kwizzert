@@ -51,7 +51,7 @@ const questionActionCreator = {
             kwizzertWebSocket.stopQuestion(code);
             dispatch({type: STOP_QUESTION});
 
-            if (questionCount >= 2) {
+            if (questionCount >= 6) {
                 kwizzertWebSocket.finishRound(code);
                 dispatch({type: FINISH_ROUND});
             }
