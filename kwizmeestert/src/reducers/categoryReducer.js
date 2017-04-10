@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 
-import {RECEIVE_CATEGORIES, TOGGLE_CATEGORY} from '../constants';
+import {RECEIVE_CATEGORIES, TOGGLE_CATEGORY, FINISH_ROUND} from '../constants';
 
 const initialState = {
     categories: []
@@ -25,6 +25,10 @@ const categoryReducer = (state = initialState, action) => {
 
             return update(state, {
                 categories: {[index]: {approved: {$set: !state.categories[index].approved}}}
+            });
+        case FINISH_ROUND:
+            return update(state, {
+                categories: {$set: []}
             });
         default:
             return state;

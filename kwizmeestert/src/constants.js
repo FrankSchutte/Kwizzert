@@ -24,3 +24,5 @@ export const TOGGLE_ANSWER = 'toggle answer';
 export const SEND_ANSWER = 'send answer';
 export const STOP_QUESTION = 'stop question';
 export const FINISH_ROUND = 'finish round';
+export const NEXT_ROUND = 'next round';
+export const FINISH_QUIZ = 'finish quiz';

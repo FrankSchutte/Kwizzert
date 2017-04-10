@@ -1,4 +1,4 @@
-import {PENDING_CREATE_QUIZ, RECEIVE_CREATE_QUIZ, START_QUIZ, START_ROUND} from '../constants';
+import {PENDING_CREATE_QUIZ, RECEIVE_CREATE_QUIZ, START_QUIZ, START_ROUND, NEXT_ROUND, FINISH_QUIZ} from '../constants';
 import kwizzertAPI from '../kwizzertAPI';
 import kwizzertWebSocket from '../kwizzertWebSocket';
 
@@ -22,6 +22,13 @@ const routingActionCreator = {
     },
     startRound() {
         return {type: START_ROUND}
+    },
+    nextRound() {
+        return {type: NEXT_ROUND};
+    },
+    finishQuiz(code) {
+        kwizzertWebSocket.finishQuiz(code);
+        return {type: FINISH_QUIZ};
     }
 };
 

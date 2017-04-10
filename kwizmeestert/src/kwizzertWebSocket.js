@@ -99,12 +99,20 @@ const kwizzertWebSocket = {
 
         webSocket.send(JSON.stringify(message));
     },
-    roundFinished(code) {
+    finishRound(code) {
         const message = {
             action: 'FINISH_ROUND',
             code: code
         };
-        console.log('sending finish round', message);
+
+        webSocket.send(JSON.stringify(message));
+    },
+    finishQuiz(code) {
+        const message = {
+            action: 'FINISH_QUIZ',
+            code: code
+        };
+
         webSocket.send(JSON.stringify(message));
     }
 };
