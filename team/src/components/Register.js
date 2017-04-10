@@ -1,5 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 
+import CenterText from './styling/CenterText';
+import InputField from './styling/InputField';
+
 class Register extends Component {
     constructor(props) {
         super(props);
@@ -16,30 +19,24 @@ class Register extends Component {
 
     render() {
         return (
-            <div>
+            <CenterText>
                 <h1>Registreer voor een Kwiz</h1>
                 <form onSubmit={this.onSubmit}>
-                    <div>
-                        Team naam
-                        <input type="text" id="teamName"/>
-                    </div>
-                    <div>
-                        Code
-                        <input type="text" id="code"/>
-                    </div>
+                    <InputField id="teamName" label="Team naam"/>
+                    <InputField id="code" label="Kwiz code"/>
                     <input type="submit" value="Registreer"/>
                 </form>
                 {this.props.quiz_found === false ?
                     <p>Aanmelden bij quiz mislukt{this.state.exclamation}</p> : ''
                 }
-            </div>
+            </CenterText>
         )
     }
 }
 
 Register.propTypes = {
     onRegister: PropTypes.func.isRequired,
-    quiz_found: PropTypes.bool.isRequired
+    quiz_found: PropTypes.bool
 };
 
 export default Register;

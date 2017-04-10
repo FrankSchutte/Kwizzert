@@ -1,5 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 
+import Box from './styling/Box';
+import CenterText from './styling/CenterText';
+import InputField from './styling/InputField';
+
 class Question extends Component {
 
     onSendAnswer(e) {
@@ -14,19 +18,18 @@ class Question extends Component {
 
     render() {
         return (
-            <div>
-                <h1>Vraag</h1>
+            <CenterText>
                 <div>
-                    Vraag: {this.props.question.question}
+                    <h3>Vraag | Categorie {this.props.question.category}</h3>
+                    {this.props.question.question}
                 </div>
-                <div>
+                <div className="questionFormContainer">
                     <form onSubmit={this.onSendAnswer.bind(this)}>
-                        Antwoord:
-                        <input type="text" id="answer"/>
+                        <InputField id="answer" label="Antwoord"/>
                         <input type="submit" value="Bevestig"/>
                     </form>
                 </div>
-            </div>
+            </CenterText>
         )
     }
 }
