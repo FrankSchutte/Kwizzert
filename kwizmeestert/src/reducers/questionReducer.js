@@ -23,8 +23,11 @@ const questionReducer = (state = initialState, action) => {
             }
             return state;
         case CHOOSE_QUESTION:
+            const question = action.question;
+            question.active = false;
+
             return update(state, {
-                activeQuestion: {$set: action.question}
+                activeQuestion: {$set: question}
             });
         case TOGGLE_QUESTION_ACTIVITY:
             return update(state, {

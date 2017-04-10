@@ -3,7 +3,16 @@ import RateAnswers from "./RateAnswers";
 
 class Question extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            wasStarted: false
+        };
+    }
+
     onToggleActivity() {
+        this.setState({wasStarted: true});
         this.props.onToggleActivity(this.props.code, this.props.question.active);
     }
 
@@ -30,8 +39,8 @@ class Question extends Component {
                 <hr/>
                 <RateAnswers code={this.props.code} answers={this.props.answers} active={this.props.question.active}/>
                 <hr/>
-                {this.props.question.active === null || this.props.question.active === false ?
-                   <button onClick={this.onStopQuestion.bind(this)}>Volgende vraag</button>
+                {this.state.wasStarted && !this.props.question.active ?
+                    <button onClick={this.onStopQuestion.bind(this)}>Volgende vraag</button>
                     : ''
                 }
             </div>
