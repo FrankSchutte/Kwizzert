@@ -17,6 +17,7 @@ class RateAnswers extends Component {
                         key={answer.teamName}
                         teamName={answer.teamName}
                         answer={answer.answer}
+                        active={this.props.active}
                         onClickHandler={this.onRateAnswer.bind(this, answer)}
                     />)
                 )}
@@ -27,7 +28,8 @@ class RateAnswers extends Component {
 
 RateAnswers.propTypes = {
     code: PropTypes.string.isRequired,
-    answers: PropTypes.array.isRequired
+    answers: PropTypes.array.isRequired,
+    active: PropTypes.bool.isRequired
 };
 
 export default RateAnswers;

@@ -1,11 +1,12 @@
 import request from 'superagent';
 
 const url = location.origin;
+const key = 'supurgeheimuhkie';
 
 let kwizzertAPI = {
     createQuiz(callback) {
         request
-            .post(url + '/api/v1/kwiz/create')
+            .post(url + '/api/v1/kwiz/create?key=' + key)
             .end(function (err, res) {
                 callback(err, JSON.parse(res.text));
             });
@@ -19,7 +20,7 @@ let kwizzertAPI = {
     },
     fetchQuestions(categoryName, callback) {
         request
-            .get(url + '/api/v1/categories/' +  categoryName + '/questions')
+            .get(url + '/api/v1/categories/' +  categoryName + '/questions?key=' + key)
             .end(function (err, res) {
                 callback(err, JSON.parse(res.text));
             });

@@ -28,9 +28,12 @@ class Question extends Component {
                     <span>Antwoord: {this.props.question.answer}</span>
                 </div>
                 <hr/>
-                <RateAnswers code={this.props.code} answers={this.props.answers}/>
+                <RateAnswers code={this.props.code} answers={this.props.answers} active={this.props.question.active}/>
                 <hr/>
-                <button onClick={this.onStopQuestion.bind(this)}>Volgende vraag</button>
+                {this.props.question.active === null || this.props.question.active === false ?
+                   <button onClick={this.onStopQuestion.bind(this)}>Volgende vraag</button>
+                    : ''
+                }
             </div>
         )
     }

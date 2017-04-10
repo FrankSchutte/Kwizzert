@@ -18,13 +18,17 @@ class Register extends Component {
                     </div>
                     <input type="submit" value="Registreer"/>
                 </form>
+                {this.props.quiz_found === false ?
+                    <p>Aanmelden bij quiz mislukt!</p> : ''
+                }
             </div>
         )
     }
 }
 
 Register.propTypes = {
-    onRegister: PropTypes.func.isRequired
+    onRegister: PropTypes.func.isRequired,
+    quiz_found: PropTypes.bool.isRequired
 };
 
 export default Register;

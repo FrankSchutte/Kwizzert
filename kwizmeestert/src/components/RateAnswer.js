@@ -23,10 +23,12 @@ class RateAnswer extends Component {
                 <span>
                     <input
                         type="radio"
+                        disabled={this.props.active}
                         name={this.props.teamName}
                         onClick={this.onClickHandler.bind(this, true)}/> |
                     <input
                         type="radio"
+                        disabled={this.props.active}
                         name={this.props.teamName}
                         onClick={this.onClickHandler.bind(this, false)}/>
                     {this.props.teamName} {this.props.answer}
@@ -40,7 +42,8 @@ class RateAnswer extends Component {
 RateAnswer.propTypes = {
     teamName: PropTypes.string.isRequired,
     answer: PropTypes.string.isRequired,
-    onClickHandler: PropTypes.func.isRequired
+    onClickHandler: PropTypes.func.isRequired,
+    active: PropTypes.bool.isRequired
 };
 
 export default RateAnswer;
