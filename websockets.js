@@ -214,6 +214,7 @@ const sendQuizFinishedNoticeToClients = (wsServer, quizcode) => {
                 action: 'FINISH_QUIZ'
             };
             client.send(JSON.stringify(message));
+            client.close();
         }
     });
 };
