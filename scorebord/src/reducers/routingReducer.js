@@ -3,7 +3,8 @@ import {REGISTER, RECEIVE_REGISTER, SHOW_CODE, QUIZ, RESULTS, START_QUIZ, FINISH
 
 const initialState = {
     currentPage: REGISTER,
-    code: null
+    code: null,
+    quiz_found: null
 };
 
 const routingReducer = (state = initialState, action) => {
@@ -13,10 +14,15 @@ const routingReducer = (state = initialState, action) => {
             if (action.success) {
                 return update(state, {
                     currentPage: {$set: SHOW_CODE},
-                    code: {$set: action.code}
+                    code: {$set: action.code},
+                    quiz_found: {$set: true}
                 });
             }
-            break;
+            else {
+                return update(state, {
+                    quiz_found: {$set: false}
+                })
+            }
 
         case START_QUIZ:
             return update(state, {
