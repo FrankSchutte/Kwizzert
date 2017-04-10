@@ -209,11 +209,13 @@ const sendRoundFinishedNoticeToScoreboard = (wsServer, quizcode) => {
 const sendQuizFinishedNoticeToClients = (wsServer, quizcode) => {
     wsServer.clients.forEach((client) => {
         const clientInfo = socketMap.get(client);
-        if (clientInfo && clientInfo.code === quizcode && clientInfo.type === types.scoreboard) {
-            const message = {
-                action: 'FINISH_QUIZ'
-            };
-            client.send(JSON.stringify(message));
+        if (clientInfo && clientInfo.code === quizcode) {
+            if(clientInfo.type === types.scoreboard) {
+                const message = {
+                    action: 'FINISH_QUIZ'
+                };
+                client.send(JSON.stringify(message));
+            }
             client.close();
         }
     });
