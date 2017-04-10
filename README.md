@@ -119,23 +119,11 @@ De index pagina toont een statische pagina met drie knoppen. Deze knoppen verwij
 
 ## Communicatie
 ### API
-##### POST /api/v1/login
-De meestert moet zich authenticeren via een sessionId.
-```
-Body parameters:
-{
-    password: "..."
-}
-
-Response 
-    success: 200 OK
-    failed : 401 Unauthorized
-```
 
 #### Kwiz
-##### GET /api/v1/kwiz/create
+##### GET /api/v1/kwiz/create?:key
 Maakt een nieuwe Kwiz aan en geeft de unieke Kwiz code terug.  
-*Hiervoor moet een session aangemaakt zijn door middel van /api/v1/login.*
+*Hiervoor moet een API key meegegeven worden in de URL.*
 ```
 Response:
 {
@@ -163,9 +151,9 @@ Response:
 ]
 ```
 
-##### GET /api/v1/categories/:categoryName/questions
+##### GET /api/v1/categories/:categoryName/questions?:key
 Vraag een lijst op van alle vragen in gegeven categorie.  
-*Hiervoor moet een session aangemaakt zijn door middel van /api/v1/login.*
+*Hiervoor moet een API key meegegeven worden in de URL.*
 ```
 Response:
 {
@@ -181,10 +169,10 @@ Response:
 }
 ```
 
-##### GET /api/v1/questions/:id
+##### GET /api/v1/questions/:id?:key
 Vraag een vraag op.  
-Wanneer een team de vraag ophaalt wordt alleen de vraag en de categorie opgestuurd.  
-Wanneer het scorebord de vraag ophaalt wordt ook het antwoord meegestuurd.
+Wanneer een team de vraag ophaalt wordt alleen de vraag en de categorie opgestuurd.
+Als er een API key wordt meegestuurd in de url dan bevat de response ook het antwoord.
 ```
 Response:
 {
