@@ -8,11 +8,14 @@ class PickCategories extends Component {
     }
 
     hasSelectedCategory() {
-        const selectedCategories = this.props.categories.filter((category) => {
-            return category.approved;
+        let count = 0;
+        this.props.categories.forEach((category) => {
+            if (category.approved) {
+                count++;
+            }
         });
 
-        return selectedCategories.length > 0;
+        return count === 3;
     }
 
     render() {
