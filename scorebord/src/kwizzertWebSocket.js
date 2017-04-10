@@ -42,7 +42,7 @@ const kwizzertWebSocket = {
                     store.dispatch(teamsActionCreator.calculateScore());
                     break;
                 case 'FINISH_QUIZ':
-                    store.dispatch(teamsActionCreator.calculateScore());
+                    //store.dispatch(teamsActionCreator.calculateScore());
                     store.dispatch(routingActionCreator.finishQuiz());
             }
         };
