@@ -8,7 +8,7 @@ const registerActionCreator = {
         return (dispatch) => {
             dispatch({type: PENDING_REGISTER});
             kwizzertAPI.validQuizCode(code, (err, res) => {
-                if (err) {
+                if (err || res.status !== 'open') {
                     dispatch({type: RECEIVE_REGISTER, success: false});
                 } else {
                     if (res.status === 'open') {

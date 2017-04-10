@@ -1,9 +1,16 @@
 import React, {Component, PropTypes} from 'react';
 
 class Register extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            exclamation: ''
+        };
+    }
 
     onSubmit = (e) => {
         e.preventDefault();
+        this.setState({exclamation: this.state.exclamation + '!'});
         this.props.onRegister(e.target.teamName.value, e.target.code.value);
     };
 
@@ -22,13 +29,17 @@ class Register extends Component {
                     </div>
                     <input type="submit" value="Registreer"/>
                 </form>
+                {this.props.quiz_found === false ?
+                    <p>Aanmelden bij quiz mislukt{this.state.exclamation}</p> : ''
+                }
             </div>
         )
     }
 }
 
 Register.propTypes = {
-    onRegister: PropTypes.func.isRequired
+    onRegister: PropTypes.func.isRequired,
+    quiz_found: PropTypes.bool.isRequired
 };
 
 export default Register;

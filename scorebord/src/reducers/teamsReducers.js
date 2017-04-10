@@ -1,5 +1,5 @@
 import update from 'immutability-helper';
-import {ADD_TEAMS, ADD_SCORE, INCREASE_QUESTION_COUNT, CALCULATE_SCORE} from '../constants';
+import {ADD_TEAMS, ADD_SCORE, INCREASE_QUESTION_COUNT, CALCULATE_SCORE, RESET_QUESTION} from '../constants';
 
 const initialState = {
     teams: [],
@@ -64,16 +64,14 @@ const teamsReducers = (state = initialState, action) => {
                 questionNum: {$set: state.questionNum + 1}
             });
 
-            // if (state.questionNum === 12) {
-            //     return update(state, {
-            //         questionNum: {$set: 1},
-            //         roundNum: {$set: state.roundNum + 1}
-            //     });
-            // } else {
-            //     return update(state, {
-            //         questionNum: {$set: state.questionNum + 1}
-            //     });
-            // }
+        case RESET_QUESTION:
+            const teams = state.teams.slice(0, state.teams.length);
+            teams.forEach((team) => {
+                team.receivedScore = null
+            });
+            return update(state, {
+                teams: {$set: teams}
+            });
 
         case CALCULATE_SCORE:
             const compare = (a,b) => (b.roundScore-a.roundScore);
