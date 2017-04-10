@@ -7,6 +7,14 @@ class PickCategories extends Component {
         this.props.fetchCategories();
     }
 
+    hasSelectedCategory() {
+        const selectedCategories = this.props.categories.filter((category) => {
+            return category.approved;
+        });
+
+        return selectedCategories.length > 0;
+    }
+
     render() {
         const categories = this.props.categories.map((category) => (
             <ListItem
@@ -21,7 +29,11 @@ class PickCategories extends Component {
             <div>
                 <h1>Selecteer drie categorieën</h1>
                 {categories}
-                <button onClick={this.props.onStartRound}>Start ronde</button>
+                {
+                    this.hasSelectedCategory() ?
+                        <button onClick={this.props.onStartRound}>Start ronde</button> :
+                        ''
+                }
             </div>
         )
     }
