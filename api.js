@@ -9,7 +9,8 @@ api.use(bodyParser.json());
 // Connect to database
 let db;
 
-if(process.env.MONGODB_USERNAME && process.env.MONGODB_PASSWORD) {
+let key;
+if(process.env.MONGODB_USERNAME && process.env.MONGODB_PASSWORD && process.env.KEY) {
     mongo.connect('mongodb://' +
         process.env.MONGODB_USERNAME + ':' +
         process.env.MONGODB_PASSWORD + '@' +
@@ -17,6 +18,7 @@ if(process.env.MONGODB_USERNAME && process.env.MONGODB_PASSWORD) {
         if (err) throw err;
         db = database;
     });
+    key = process.env.KEY;
 } else {
     const secrets = require('./secrets');
     mongo.connect('mongodb://' +
@@ -26,16 +28,17 @@ if(process.env.MONGODB_USERNAME && process.env.MONGODB_PASSWORD) {
         if (err) throw err;
         db = database;
     });
+    key = secrets.key;
 }
-
-// LOGIN
-api.post('/login', (req, res) => {
-    res.sendStatus(200);
-});
 
 // KWIZ/CREATE
 api.post('/kwiz/create', (req, res) => {
-    addQuiz(res);
+    const auth = req.query.key;
+    if (auth === key) {
+        addQuiz(res);
+    } else {
+        res.sendStatus(401);
+    }
 });
 
 
@@ -77,36 +80,46 @@ api.get('/categories', (req, res) => {
 
 // CATEGORIES/CATEGORYNAME/QUESTIONS
 api.get('/categories/:categoryName/questions', (req, res) => {
-    const category = req.params.categoryName;
-    db.collection('vragen').find({category: category}).toArray((err, questions) => {
-        if (err) throw err;
-        if (questions && questions.length > 0) {
-            let questionsArray = questions.map((question) => ({
-                    _id: question._id,
-                    question: question.question,
-                    answer: question.answer
-            }));
-
-            const response = {
-                category: category,
-                questions: questions
-            };
-            res.status(200).json(response);
-        }
-    });
+    const auth = req.query.key;
+    if (auth === key) {
+        const category = req.params.categoryName;
+        db.collection('vragen').find({category: category}).toArray((err, questions) => {
+            if (err) throw err;
+            if (questions && questions.length > 0) {
+                const response = {
+                    category: category,
+                    questions: questions
+                };
+                res.status(200).json(response);
+            }
+        });
+    } else {
+        res.sendStatus(401);
+    }
 });
 
 // QUESTIONS/ID
 api.get('/questions/:id', (req, res) => {
+    const auth = req.query.key;
     const id = ObjectID(req.params.id);
     db.collection('vragen').findOne({_id: id}, (err, question) => {
         if (err) throw err;
         if (question) {
-            const response = {
-                question: question.question,
-                answer: question.answer,
-                category: question.category
-            };
+            let response;
+
+            if (auth === key) {
+                response = {
+                    question: question.question,
+                    answer: question.answer,
+                    category: question.category
+                };
+            }
+            else {
+                response = {
+                    question: question.question,
+                    category: question.category
+                }
+            }
             res.status(200).json(response);
         }
     });
@@ -114,7 +127,7 @@ api.get('/questions/:id', (req, res) => {
 
 const createCode = () => {
     let code = "";
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    const characters = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
     for( let i=0; i < 6; i++ )
         code += characters.charAt(Math.floor(Math.random() * characters.length));
     return code;

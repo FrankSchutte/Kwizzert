@@ -11,7 +11,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     fetchCategories: () => dispatch(categoryActionCreator.fetchCategories()),
     onToggleCategory: (category) => dispatch(categoryActionCreator.toggleCategorySelected(category)),
-    onStartRound: (categories) => dispatch(routingActionCreator.startRound(categories))
+    onStartRound: () => dispatch(routingActionCreator.startRound())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PickCategories);

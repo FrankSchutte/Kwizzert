@@ -4,7 +4,13 @@ import ListItem from "./ListItem";
 class PickQuestion extends Component {
 
     componentDidMount() {
-        this.props.fetchQuestions();
+        if(this.props.questions.length === 0) {
+            const selectedCategories = this.props.categories.filter((category) => {
+                return category.approved;
+            });
+
+            this.props.fetchQuestions(selectedCategories);
+        }
     }
 
     onQuestionSelect(question) {
@@ -12,28 +18,32 @@ class PickQuestion extends Component {
     }
 
     render() {
-        const questions = this.props.questions.map((question) => (
-            <ListItem
-                key={question._id}
-                checked={question.approved ? 'checked' : ''}
-                name={question.question}
-                onClickHandler={this.onQuestionSelect.bind(this, question)}
-            />
-        ));
-
         return (
             <div>
                 <h1>Selecteer een vraag</h1>
-                {questions}
+                {this.props.questions.map((questions) => (
+                    <div key={questions.categoryName}>
+                        <h2>{questions.categoryName}</h2>
+                        {questions.questions.map((question) => (
+                            <ListItem
+                                key={question._id}
+                                checked={question.approved ? 'checked' : ''}
+                                name={question.question}
+                                onClickHandler={this.onQuestionSelect.bind(this, question)}
+                            />)
+                        )}
+                    </div>
+                ))}
             </div>
         )
     }
 }
 
 PickQuestion.propTypes = {
-    fetchQuestions: PropTypes.func.isRequired,
     code: PropTypes.string.isRequired,
+    categories: PropTypes.array.isRequired,
     questions: PropTypes.array.isRequired,
+    fetchQuestions: PropTypes.func.isRequired,
     onQuestionSelect: PropTypes.func.isRequired
 };
 

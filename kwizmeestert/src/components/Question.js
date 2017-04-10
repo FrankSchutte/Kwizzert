@@ -14,7 +14,7 @@ class Question extends Component {
     render() {
         return (
             <div>
-                <h1>Vraag {this.props.questionCount + 1}/12</h1>
+                <h1>Ronde {this.props.roundCount} - Vraag {this.props.questionCount + 1}/12</h1>
                 <div>
                     <button onClick={this.onToggleActivity.bind(this)}>
                         {!this.props.question.active ? 'Start' : 'Sluit'} vraag
@@ -28,9 +28,12 @@ class Question extends Component {
                     <span>Antwoord: {this.props.question.answer}</span>
                 </div>
                 <hr/>
-                <RateAnswers answers={this.props.answers}/>
+                <RateAnswers code={this.props.code} answers={this.props.answers} active={this.props.question.active}/>
                 <hr/>
-                <button onClick={this.onStopQuestion.bind(this)}>Volgende vraag</button>
+                {this.props.question.active === null || this.props.question.active === false ?
+                   <button onClick={this.onStopQuestion.bind(this)}>Volgende vraag</button>
+                    : ''
+                }
             </div>
         )
     }
@@ -39,6 +42,7 @@ class Question extends Component {
 Question.propTypes = {
     code: PropTypes.string.isRequired,
     questionCount: PropTypes.number.isRequired,
+    roundCount: PropTypes.number.isRequired,
     question: PropTypes.object.isRequired,
     answers: PropTypes.array.isRequired,
     onToggleActivity: PropTypes.func.isRequired,

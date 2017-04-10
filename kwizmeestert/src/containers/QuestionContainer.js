@@ -6,6 +6,7 @@ import questionActionCreator from '../actions/questionActionCreator';
 const mapStateToProps = (state) => ({
     code: state.routingReducer.code,
     questionCount: state.questionReducer.questionCount,
+    roundCount: state.questionReducer.roundCount,
     question: state.questionReducer.activeQuestion,
     answers: state.answerReducer.answers
 });

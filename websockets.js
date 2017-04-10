@@ -2,13 +2,13 @@
 const ws = require('ws');
 const socketMap = new WeakMap();
 
-module.exports.create = (httpServer) => (
-    new ws.Server({
-        server: httpServer,
-        port: 3001,
-        path: '/ws'
-    })
-);
+module.exports.create = (httpServer) => {
+    const server = new ws.Server({
+        server: httpServer
+    });
+    setInterval(() => keepConnectionAlive(server), 15000);
+    return server;
+};
 
 const types = {
     scoreboard: 'scoreboard',
@@ -70,7 +70,7 @@ const configure = (wsServer) => {
                         messageObject.code);
                     break;
 
-                case 'ROUND_FINISHED':
+                case 'FINISH_ROUND':
                     sendRoundFinishedNoticeToScoreboard(wsServer, messageObject.code);
                     break;
 
@@ -199,7 +199,7 @@ const sendRoundFinishedNoticeToScoreboard = (wsServer, quizcode) => {
         const clientInfo = socketMap.get(client);
         if (clientInfo && clientInfo.code === quizcode && clientInfo.type === types.scoreboard) {
             const message = {
-                action: 'ROUND_FINISHED'
+                action: 'FINISH_ROUND'
             };
             client.send(JSON.stringify(message));
         }
@@ -209,11 +209,20 @@ const sendRoundFinishedNoticeToScoreboard = (wsServer, quizcode) => {
 const sendQuizFinishedNoticeToClients = (wsServer, quizcode) => {
     wsServer.clients.forEach((client) => {
         const clientInfo = socketMap.get(client);
-        if (clientInfo && clientInfo.code === quizcode && clientInfo.type !== types.quizmaster) {
+        if (clientInfo && clientInfo.code === quizcode && clientInfo.type === types.scoreboard) {
             const message = {
                 action: 'FINISH_QUIZ'
             };
             client.send(JSON.stringify(message));
+        }
+    });
+};
+
+
+const keepConnectionAlive = (wsServer) => {
+    wsServer.clients.forEach((client) => {
+        if (client.readyState !== 2 && client.readyState !== 3) {
+            client.send(JSON.stringify({ping: 'pong'}));
         }
     });
 };

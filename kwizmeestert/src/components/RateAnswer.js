@@ -2,8 +2,19 @@ import React, {Component, PropTypes} from 'react';
 
 class RateAnswer extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            approved: undefined
+        };
+    }
+
     onClickHandler(approved) {
-        this.props.onClickHandler(approved);
+        if (approved !== this.state.approved) {
+            this.setState({approved: approved});
+            this.props.onClickHandler(approved);
+        }
     }
 
     render() {
@@ -12,12 +23,14 @@ class RateAnswer extends Component {
                 <span>
                     <input
                         type="radio"
+                        disabled={this.props.active}
                         name={this.props.teamName}
                         onClick={this.onClickHandler.bind(this, true)}/> |
                     <input
                         type="radio"
+                        disabled={this.props.active}
                         name={this.props.teamName}
-                        onClick={this.onClickHandler.bind(this,false)}/>
+                        onClick={this.onClickHandler.bind(this, false)}/>
                     {this.props.teamName} {this.props.answer}
                 </span>
                 <hr/>
@@ -29,7 +42,8 @@ class RateAnswer extends Component {
 RateAnswer.propTypes = {
     teamName: PropTypes.string.isRequired,
     answer: PropTypes.string.isRequired,
-    onClickHandler: PropTypes.func.isRequired
+    onClickHandler: PropTypes.func.isRequired,
+    active: PropTypes.bool.isRequired
 };
 
 export default RateAnswer;

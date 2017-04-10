@@ -1,11 +1,13 @@
 import teamActionCreator from './actions/teamActionCreator';
 import questionActionCreator from './actions/questionActionCreator';
 
+const url = location.origin.replace(/^http/, 'ws');
+
 let webSocket;
 
 const kwizzertWebSocket = {
     init (store) {
-        webSocket = new WebSocket('ws://localhost:3001/ws');
+        webSocket = new WebSocket(url);
 
         webSocket.onopen = () => {
             console.log('connected to server');
@@ -99,10 +101,10 @@ const kwizzertWebSocket = {
     },
     roundFinished(code) {
         const message = {
-            action: 'ROUND_FINISHED',
+            action: 'FINISH_ROUND',
             code: code
         };
-
+        console.log('sending finish round', message);
         webSocket.send(JSON.stringify(message));
     }
 };

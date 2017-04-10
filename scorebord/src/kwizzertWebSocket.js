@@ -1,12 +1,13 @@
-import registerActionCreator from './actions/registerActionCreator';
+import routingActionCreator from './actions/routingActionCreator';
 import questionActionCreator from './actions/questionActionCreator';
+import teamsActionCreator from './actions/teamsActionCreator';
 
 const url = location.origin.replace(/^http/, 'ws');
 
 let webSocket;
 
 const kwizzertWebSocket = {
-    init(store) {
+    init (store) {
         webSocket = new WebSocket(url);
 
         webSocket.onopen = () => {
@@ -17,8 +18,9 @@ const kwizzertWebSocket = {
             const message = JSON.parse(event.data);
             console.log('received:', message);
             switch (message.action) {
-                case 'KICK_TEAM':
-                    store.dispatch(registerActionCreator.kick());
+                case 'START_QUIZ':
+                    store.dispatch(teamsActionCreator.addTeams(message.teams));
+                    store.dispatch(routingActionCreator.startQuiz());
                     break;
                 case 'PICK_QUESTION':
                     store.dispatch(questionActionCreator.fetchQuestion(message.questionId));
@@ -29,34 +31,29 @@ const kwizzertWebSocket = {
                 case 'STOP_QUESTION':
                     store.dispatch(questionActionCreator.stopQuestion());
                     break;
-                default:
+                case 'SEND_ANSWER':
+                    store.dispatch(questionActionCreator.addAnswers(message));
                     break;
+                case 'SEND_RATING':
+                    store.dispatch(questionActionCreator.addResults(message));
+                    store.dispatch(teamsActionCreator.addScore(message));
+                    break;
+                case 'FINISH_ROUND':
+                    store.dispatch(teamsActionCreator.calculateScore());
+                    break;
+                case 'FINISH_QUIZ':
+                    store.dispatch(teamsActionCreator.calculateScore());
+                    store.dispatch(routingActionCreator.finishQuiz());
             }
         };
-
-        webSocket.onclose = () => {
-            store.dispatch(registerActionCreator.kick());
-            console.log('connection closed with server');
-        };
     },
-    register(code, teamName) {
+
+    register(code) {
         const message = {
             action: 'REGISTER',
             code: code,
-            type: 'team',
-            teamName: teamName
+            type: 'scoreboard'
         };
-
-        webSocket.send(JSON.stringify(message));
-    },
-    sendAnswer(code, teamName, answer) {
-        const message = {
-            action: 'SEND_ANSWER',
-            code: code,
-            teamName: teamName,
-            answer: answer
-        };
-
         webSocket.send(JSON.stringify(message));
     }
 };

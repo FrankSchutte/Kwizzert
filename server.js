@@ -18,12 +18,13 @@ const allowCrossDomain = (req, res, next) => {
     next();
 };
 
-app.use(allowCrossDomain);
+// app.use(allowCrossDomain);
 app.use('/api/v1', require('./api'));
 
 app.route('/static/*')
     .get((req, res) => {
     const referer = req.get('Referer');
+
     if(referer) {
         if (referer.includes('/kwizmeestert')) {
             res.sendFile(path.join(__dirname, 'kwizmeestert/build', req.path));
@@ -32,7 +33,7 @@ app.route('/static/*')
             res.sendFile(path.join(__dirname, 'team/build', req.path));
         }
         else if (referer.includes('/scorebord')) {
-            res.sendFile(path.join(__dirname, 'scorebord/build'));
+            res.sendFile(path.join(__dirname, 'scorebord/build', req.path));
         }}}
     );
 
@@ -60,11 +61,11 @@ app.route('/')
 app.use(express.static(path.join(__dirname, 'tests')));
 
 
-// app.route('/*')
-//     .get((req, res) => {
-//         res.sendFile(path.join(__dirname, 'index.html'));
-//     });
+app.route('/*')
+    .get((req, res) => {
+        res.sendFile(path.join(__dirname, 'index.html'));
+    });
 
-app.listen(port, () => {
+httpServer.listen(port, () => {
     console.log("Server started and listening to ::" + port);
 });

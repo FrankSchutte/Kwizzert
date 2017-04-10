@@ -29,7 +29,7 @@ class Main extends Component {
                 page = <QuestionContainer/>;
                 break;
             case ROUND_FINISHED:
-                page = <RoundFinishedContainer/>
+                page = <RoundFinishedContainer/>;
                 break;
             default:
                 page = <CreateQuizContainer/>;

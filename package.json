@@ -3,13 +3,25 @@
   "author": "Albert Veldman",
   "version": "0.1.0",
   "scripts": {
-    "start": "node server.js",
-    "build": "cd kwizmeestert && npm run build && cd ../team && npm run build && cd ../scorebord && npm run build && cd .."
+    "start": "node server",
+    "heroku-postbuild": "cd kwizmeestert/ && npm install && npm run build && cd ../team/ && npm install && npm run build && cd ../scorebord/ && npm install && npm run build"
   },
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "mongodb": "^2.2.25",
     "ws": "^2.2.2"
+  },
+  "devDependencies": {
+    "react-scripts": "0.9.5"
+  },
+  "cacheDirectories": [
+    "node_modules",
+    "kwizmeestert/node_modules",
+    "team/node_modules",
+    "scorebord/node_modules"
+  ],
+  "engines": {
+    "node": "7.8.0"
   }
 }
