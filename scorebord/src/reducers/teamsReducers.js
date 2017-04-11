@@ -74,9 +74,11 @@ const teamsReducers = (state = initialState, action) => {
             });
 
         case CALCULATE_SCORE:
-            const compare = (a,b) => (b.roundScore-a.roundScore);
+            const compareRound = (a,b) => (b.roundScore-a.roundScore);
+            const compareTotal = (a,b) => (b.totalScore-a.totalScore);
+
             const teamCopy = state.teams.slice(0, state.teams.length);
-            teamCopy.sort(compare);
+            teamCopy.sort(compareRound);
 
             teamCopy.forEach((team, i) => {
                 if (team.roundScore > 0) {
@@ -93,6 +95,7 @@ const teamsReducers = (state = initialState, action) => {
                 team.roundScore = 0;
             });
             teamCopy.forEach((team) => team.roundScore = 0);
+            teamCopy.sort(compareTotal);
             return update(state, {
                 teams: {$set: teamCopy},
                 roundNum: {$set: state.roundNum + 1},
